@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometrie-Tools</title>
+    <link rel="stylesheet" href="../static/css/styleStart.css">
+    <script>
+        function chooseProfile(profile_Name) {
+            localStorage.setItem('profileName', profile_Name);
+            console.log("Gespeicherter Profilname:", localStorage.getItem("profileName")); // Debugging
+            window.location.href = 'choose_data.html';
+        }
+    </script>
+</head>
+<body>
+    <!-- Kreise oben -->
+    <div class="circles">
+        <div class="circle big">1</div>
+        <div class="circle grey">2</div> <!-- Kleine Kreise sind nicht anklickbar -->
+        <div class="circle grey">3</div>
+        <div class="circle grey">4</div>
+        <div class="circle grey">5</div>
+    </div>
+    
+    <h1>Wähle das Instagram-Profil</h1>
+    
+    <!-- Buttons -->
+    <div class="buttons">
+        <button class="button" onclick="chooseProfile('google')">google</button>
+        <button class="button" onclick="chooseProfile('elbenwald')">elbenwald</button>
+        <button class="button" onclick="chooseProfile('kulturcafezett9')">kulturcafezett9</button>
+        <button class="button" onclick="chooseProfile('die_commanderschmiede')">die_commanderschmiede</button>
+    </div>
+</body>
+</html>

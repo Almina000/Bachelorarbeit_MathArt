@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datensatz wählen</title>
+    <link rel="stylesheet" href="../static/css/styleStart.css">
+    <script>
+        function chooseData(data_Name) {
+            localStorage.setItem('dataName', data_Name);
+            console.log("Gespeicherter dataName:", localStorage.getItem("dataName")); // Debugging
+            window.location.href = 'choose_algorithm.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="circles">
+        <a href="choose_profile.html" class="circle">1</a>
+        <div class="circle big">2</div>
+        <div class="circle grey">3</div>
+        <div class="circle grey">4</div>
+        <div class="circle grey">5</div>
+    </div>
+    <h1>Wähle einen Datensatz</h1>
+    <div class="buttons">
+        <button class="button" onclick="chooseData('hashtags')">Hashtags</button>
+        <button class="button" onclick="chooseData('colors')">Farben</button>
+        <button class="button" onclick="chooseData('months')">Monate</button>
+        <button class="button" onclick="chooseData('weeks')">Wochen</button>
+    </div>
+</body>
+</html>

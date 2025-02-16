@@ -1,0 +1,231 @@
+/* Allgemeine Einstellungen für die Seite */
+@font-face {
+  font-family: 'SugarMagic';
+  src: url('../fonts/SugarMagic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AbadiMT-Light';
+  src: url('../fonts/AbadiMT-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AbadiMT-ExtraLight';
+  src: url('../fonts/AbadiMT-ExtraLight.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'AbadiMT-Light', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f4f4f9;
+  position: relative; /* Für absolute Positionierung der Formularelemente */
+}
+
+/* Eingabeformulare */
+#startPage {
+  font-family: 'AbadiMT-Light', sans-serif;
+  width: 80%;
+  max-width: 600px;
+  margin-top: 100px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Layout für das Hauptcontent */
+#content {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+/* Linke Spalte: Menü */
+#menu {
+  position: fixed;
+  top: 70px; /* Abstand zum Button */
+  left: 40px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+/* Rechte Spalte: Kunstwerk */
+#artwork {
+  margin-top: 100px; /* Abstand, damit das Menü nicht das Artwork überlappt */
+  padding-top: 100px;
+  flex-grow: 1;
+  width: 80%;
+  max-width: 800px;
+  height: 400px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Beschriftung und Slider für Dreiecke, Kreise und Rechtecke */
+label {
+  font-size: 1.2rem;
+  color: #333;
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+span {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Stil für den Warnhinweis */
+#warning {
+  font-size: 1rem;
+  color: red;
+  margin-top: 20px;
+  display: none;
+}
+
+/* Stil für den Weiter-Button */
+button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  color: white;
+  background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8); /* Farbverlauf */
+  background-size: 400% 400%;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background-position 0.8s ease, transform 0.3s ease;
+  margin-top: 30px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-position: 100% 100%;
+  transform: scale(1.1);
+}
+
+button:active {
+  transform: scale(1.05);
+}
+
+/* Eingabefelder für die Anzahl der Formen */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  background: #f1f1f1;
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+input[type="range"]:focus {
+  background: #9b4dca;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #9b4dca;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  background: #732e99;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  background: #5c2388;
+}
+
+/* Entfernt das Standard-Checkbox-Design */
+input[type="checkbox"] {
+  appearance: none; /* Verhindert die standardmäßige Browseranzeige */
+  width: 20px; /* Breite der Checkbox */
+  height: 20px; /* Höhe der Checkbox */
+  border: 2px solid #333; /* Rahmenfarbe */
+  border-radius: 4px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeigt den Mauszeiger als Zeiger */
+  position: relative; /* Ermöglicht das Hinzufügen eines Pseudo-Elements */
+  transition: background-color 0.3s, border-color 0.3s; /* Sanfte Übergänge */
+}
+
+/* Stil der Checkbox, wenn sie gecheckt ist */
+input[type="checkbox"]:checked {
+  background-color: #9b4dca; /* Hintergrundfarbe, wenn gecheckt */
+  border-color: #9b4dca; /* Rahmenfarbe, wenn gecheckt */
+}
+
+/* Hinzufügen eines Häkchens für die Checkbox, wenn sie gecheckt ist */
+input[type="checkbox"]:checked::before {
+  content: '✓'; /* Häkchenzeichen */
+  color: white; /* Farbe des Häkchens */
+  position: absolute;
+  top: -0.01px; /* Zentrierung vertikal */
+  left: 1px; /* Zentrierung horizontal */
+  width: 16px; /* Breite des Häkchens */
+  height: 16px; /* Höhe des Häkchens */
+  font-size: 16px; /* Schriftgröße des Häkchens */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Anzeige der aktuellen Werte für Dreiecke, Kreise, Rechtecke */
+#triangleValue, #circleValue, #rectangleValue {
+  display: inline-block;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center; /* Vertikale Ausrichtung */
+  gap: 20px; /* Abstand zwischen Label und Checkbox */
+  margin-top: 10px; /* Vertikaler Abstand oben und unten */
+}
+#filterCheckbox {
+  margin-top: 20px; /* Abstand oben */
+  margin-bottom: 20px; /* Abstand unten */
+}
+
+

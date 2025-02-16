@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathArt</title>
+
+    <!-- CSS laden -->
+   
+    <link rel="stylesheet" href="../static/css/styleAuswahl.css">
+
+    <!-- P5-Libraries laden -->
+    <script src="../static/js/libraries/p5.min.js"></script>
+    <script src="../static/js/libraries/p5.sound.min.js"></script>
+
+    <script>
+      window.onload = function() {
+        // Werte aus dem Local Storage laden, wenn sie vorhanden sind
+        const storedShapeCounts = JSON.parse(localStorage.getItem("shapeCounts")) || { triangles: 5, circles: 5, rectangles: 5 };
+        const storedSize = localStorage.getItem("size") || "0.5";
+        const storedFilter = localStorage.getItem("filter") === "true";
+
+        // Werte in die UI setzen
+        document.getElementById("triangles").value = storedShapeCounts.triangles;
+        document.getElementById("circles").value = storedShapeCounts.circles;
+        document.getElementById("rectangles").value = storedShapeCounts.rectangles;
+        document.getElementById("sizeSlider").value = storedSize;
+        document.getElementById("filterCheckbox").checked = storedFilter;
+
+        // Werte in der Anzeige aktualisieren
+        document.getElementById("triangleValue").textContent = storedShapeCounts.triangles;
+        document.getElementById("circleValue").textContent = storedShapeCounts.circles;
+        document.getElementById("rectangleValue").textContent = storedShapeCounts.rectangles;
+        document.getElementById("sizeValue").textContent = storedSize;
+      };
+
+      function startArt() {
+        const triangles = parseInt(document.getElementById("triangles").value);
+        const circles = parseInt(document.getElementById("circles").value);
+        const rectangles = parseInt(document.getElementById("rectangles").value);
+        const total = triangles + circles + rectangles;
+
+        const filter = document.getElementById("filterCheckbox").checked;
+        localStorage.setItem("filter", filter);
+
+        const size = parseFloat(document.getElementById("sizeSlider").value);
+        localStorage.setItem("size", size);
+
+        // Werte in localStorage speichern
+        localStorage.setItem("shapeCounts", JSON.stringify({ triangles, circles, rectangles }));
+
+        // Maximale Anzahl aus geladenen Daten holen
+        const profile_Name = localStorage.getItem("profileName");
+        const data_Name = localStorage.getItem("dataName");
+        // const max_Shape = window[`${profile_Name}_${data_Name}`]?.length || 0;
+
+        // const storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  // Falls null, dann leeres Array
+        const dataPath = window[`${profileName}_${dataName}`] || []; 
+        if (dataPath) {
+            localStorage.setItem("dataPath", JSON.stringify(dataPath));
+            console.log("Gespeichert in localStorage:", dataPath);
+        } else {
+            console.error("Daten nicht gefunden:", `${profileName}_${dataName}`);
+        }
+
+        const max_Shape = dataPath.length || 0;
+      
+
+        console.log("Maximale Anzahl der Formen (maxShape):", max_Shape);
+
+        document.getElementById("maxShape").textContent = max_Shape;
+        if (total > maxShape) {
+          document.getElementById("warning").style.display = "block";
+        } else {
+          document.getElementById("warning").style.display = "none";
+          window.location.href = "artwork.html"; // Weiter zur nächsten Seite
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="menu">
+      <h2>Einstellungen</h2>
+
+      <label for="triangles">Dreiecke:</label>
+      <input type="range" id="triangles" name="triangles" min="0" max="10" value="5">
+      <span id="triangleValue">5</span><br>
+
+      <label for="circles">Kreise:</label>
+      <input type="range" id="circles" name="circles" min="0" max="10" value="5">
+      <span id="circleValue">5</span><br>
+
+      <label for="rectangles">Rechtecke:</label>
+      <input type="range" id="rectangles" name="rectangles" min="0" max="10" value="5">
+      <span id="rectangleValue">5</span><br>
+
+      <label for="filterCheckbox" class="filter-label">
+        Filter für Kreise aktivieren:
+        <input type="checkbox" id="filterCheckbox">
+      </label>
+
+      <label for="sizeSlider">Größe:</label>
+      <input type="range" id="sizeSlider" name="sizeSlider" min="0" max="1" step="0.01" value="0.5">
+      <span id="sizeValue">0.5</span><br>
+
+      <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
+
+      <button id="startButton" onclick="startArt()">Weiter</button>
+    </div>
+
+    <div id="artwork"></div>
+
+    <!-- JS-Dateien dynamisch laden -->
+    <script>
+      function loadScript(url, callback) {
+          let script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = url;
+
+          script.onload = function () {
+              console.log(`Script ${url} geladen.`);
+              if (callback) callback();
+          };
+
+          document.head.appendChild(script);
+      }
+
+      // Profilname & Datentyp abrufen
+      const profileNameArtwork = localStorage.getItem('profileName');
+      const dataNameArtwork = localStorage.getItem('dataName');
+
+      // Datei dynamisch laden
+      const dataFile = `../static/js/data/${profileNameArtwork}_${dataNameArtwork}_count.js`;
+
+      fetch(dataFile, { method: 'HEAD' })
+          .then(response => {
+              if (response.ok) {
+                  loadScript(dataFile);
+              } else {
+                  console.error(`Daten für ${profileNameArtwork}_${dataNameArtwork} nicht gefunden.`);
+              }
+          })
+          .catch(error => console.error("Fehler beim Laden der Datei:", error));
+    </script>
+
+    <!-- Statische Skripte, die immer geladen werden -->
+    <script src="../static/js/predictShape.js"></script>
+    <script src="../static/js/surfaceArea.js"></script>
+    <script src="../static/js/circle.js"></script>
+    <script src="../static/js/calculate_triangles.js"></script>
+    <script src="../static/js/calculate_rectangles.js"></script>
+    <script src="../static/js/sketch.js"></script>
+
+    <script>
+      document.getElementById("triangles").oninput = function() {
+        document.getElementById("triangleValue").textContent = this.value;
+      };
+      document.getElementById("circles").oninput = function() {
+        document.getElementById("circleValue").textContent = this.value;
+      };
+      document.getElementById("rectangles").oninput = function() {
+        document.getElementById("rectangleValue").textContent = this.value;
+      };
+      document.getElementById("sizeSlider").oninput = function() {
+        document.getElementById("sizeValue").textContent = this.value;
+      };
+    </script>
+  </body>
+</html>

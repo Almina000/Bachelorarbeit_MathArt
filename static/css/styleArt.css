@@ -1,0 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  
+}
+
+canvas {
+  display: block;
+}
+
+#artwork {
+  margin-top: 50px; /* Abstand nach oben */
+  display: flex;
+  justify-content: center; /* Falls du den Canvas horizontal mittig möchtest */
+}
