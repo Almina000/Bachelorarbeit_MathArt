@@ -17,7 +17,7 @@
                 return;
             }
 
-            const dataFile = `../static/js/data/${profile_Name}_${data_Name}_count.js`;
+            const dataFile = `static/js/data/${profile_Name}_${data_Name}_count.js`;
             console.log("Zu überprüfende Datei:", dataFile);
 
             fetch(dataFile, { method: 'HEAD' })
