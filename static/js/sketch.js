@@ -1,7 +1,7 @@
 // sketch.js
 //_______________________________________________________________________________
 //VARIABLEN HOLEN
-const shapeCounts = JSON.parse(localStorage.getItem("shapeCounts"));
+const shapeCounts = JSON.parse(localStorage.getItem("shapeCounts")) || { triangles: 5, circles: 5, rectangles: 5 };
 if (!shapeCounts) {
   window.location.href = "index.html";
 }
@@ -25,15 +25,15 @@ if (filterValue === 'true') {
   console.log('Filter-Zustand ist undefiniert oder nicht gesetzt.');
 }
 
-const sizeValue = parseFloat(localStorage.getItem('size'));
+const sizeValue = parseFloat(localStorage.getItem('size')) || 0.5;
 console.log('Größe:', sizeValue);
 
 // sketch.js
-let profileName = localStorage.getItem("profileName"); 
-let dataName = localStorage.getItem("dataName"); 
+// let profileName = localStorage.getItem("profileName"); 
+// let dataName = localStorage.getItem("dataName"); 
 
-console.log("Profilname:", profileName);  // Profilname in der Konsole ausgeben
-console.log("Dataname:", dataName);  // Profilname in der Konsole ausgeben
+// console.log("Profilname:", profileName);  // Profilname in der Konsole ausgeben
+// console.log("Dataname:", dataName);  // Profilname in der Konsole ausgeben
 
 //___________________________________________________________________________________________
 
@@ -51,13 +51,6 @@ function preload() {
 
 function setup() {
 
-  // //Zeichne Leinwand
-  // createCanvas(canvasWidth, canvasHeight); 
-  // if (document.getElementById('artwork')) {
-  //   canvas.parent('artwork');
-  // } else {
-  //   console.error("Der Container 'artwork' existiert nicht im DOM.");
-  // }
   let canvas = createCanvas(canvasWidth, canvasHeight); // Speichere die Canvas-Instanz
 
   let container = document.getElementById('artwork'); // HTML-Element holen
@@ -87,25 +80,27 @@ function setup() {
   rect(rectX, rectY, rectWidth, rectHeight);
 
   let topHashtags = [];
-  let storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  
+  // let storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  
+
+  let data_Path = localStorage.getItem("dataPath");  
+  console.log("dataPath aus LocalStorage:", data_Path);
+
+  let storedData = window[data_Path] || [];  
+  console.log("storedDATA:", storedData);
 
   topHashtags = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
     .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
   let totalTopCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
 
-  // if (topHashtags.length < num){
-  //   num = topHashtags.length
-  // }
-  // Farben erstellen für jeden Hashtag, jetzt noch random
-  //let colors = [];
-  //for (let i = 0; i < num; i++) {
-    //colors.push(color(random(100, 255), random(100, 255), random(100, 255)));
-  //}
+  console.log("topHashtags.length:", topHashtags.length);
+  console.log("topHashtags:", topHashtags);
+
   
   let colors = [];  // Initialisiere das Array colors
+  let data_Name = localStorage.getItem("dataName");
 
-  if (dataName == "Pixel") {
+  if (data_Name == "Pixel") {
     colors = topHashtags.map(hashtag => hashtag.hashtag);
     console.log(colors);
   } else {

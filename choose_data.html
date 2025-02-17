@@ -7,10 +7,40 @@
     <link rel="stylesheet" href="static/css/styleStart.css">
     <script>
         function chooseData(data_Name) {
-            localStorage.setItem('dataName', data_Name);
-            console.log("Gespeicherter dataName:", localStorage.getItem("dataName")); // Debugging
-            window.location.href = 'choose_algorithm.html';
+            console.log("chooseData wurde aufgerufen mit:", data_Name);
+
+            const profile_Name = localStorage.getItem("profileName");
+            console.log("PROFILNAME:", profile_Name);
+
+            if (!profile_Name) {
+                console.error("Kein profileName im LocalStorage gefunden.");
+                return;
+            }
+
+            const dataFile = `../static/js/data/${profile_Name}_${data_Name}_count.js`;
+            console.log("Zu überprüfende Datei:", dataFile);
+
+            fetch(dataFile, { method: 'HEAD' })
+                .then(response => {
+                    console.log("fetch-Response-Status:", response.status);
+
+                    if (response.ok) {
+                        console.log("Datei existiert, speichere in LocalStorage...");
+                        localStorage.setItem('dataPath', `${profile_Name}_${data_Name}`);
+                        localStorage.setItem('dataName', data_Name);
+                        console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+
+                        // TEST: DIREKTE WEITERLEITUNG
+                        console.log("Weiterleitung zur nächsten Seite...");
+                        window.location.href = 'choose_algorithm.html';
+
+                    } else {
+                        console.error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
+                    }
+                })
+                .catch(error => console.error("Fehler beim Laden der Datei:", error));
         }
+
     </script>
 </head>
 <body>

@@ -1,5 +1,7 @@
 function calculateSurfaceArea(rectWidth, rectHeight, topHashtags,  totalTopCount, sizeValue) {
 
+    console.log("TotalTopCount:", totalTopCount);
+    console.log("sizeValue:", sizeValue);
     let surfaceAreas = [];
     let surfaceTotal = rectHeight * rectWidth;
 

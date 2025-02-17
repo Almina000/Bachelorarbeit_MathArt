@@ -1,0 +1,241 @@
+@font-face {
+    font-family: 'SugarMagic';
+    src: url('../fonts/SugarMagic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AbadiMT-Light';
+    src: url('../fonts/AbadiMT-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AbadiMT-ExtraLight';
+    src: url('../fonts/AbadiMT-ExtraLight.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+   
+    height: 100%;
+    font-family: 'AbadiMT-Light', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f4f4f9;
+    position: relative;
+}
+
+/* Linkes Menü */
+.menu {
+    width: auto;
+    padding: 50px;
+    padding-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    margin-right: 300px;
+}
+
+/* Überschriften */
+h1 {
+    font-family: 'AbadiMT-Light', sans-serif;
+    font-size: 100rem;
+    color: #333;
+    margin-top: 140px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Container für alle Buttons */
+.buttons {
+    font-family: 'AbadiMT-Light', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.mode-label {
+    font-family: 'AbadiMT-Light', sans-serif;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px; /* Abstand zum Button-Container */
+}
+
+
+#custom-palette-wrapper {
+    display: flex;
+    flex-direction: column;  /* Stapelt den Text über der Palette */
+    align-items: center;  /* Zentriert beides */
+    margin-top: 20px;
+}
+
+.palette-label {
+    font-family: 'AbadiMT-Light', sans-serif;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px; /* Abstand zur Farbpalette */
+}
+
+
+/* Standard-Buttons (inkl. "Anwenden") */
+button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: white;
+    background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8);
+    background-size: 400% 400%;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-position 0.8s ease, transform 0.3s ease;
+    margin: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+button:hover {
+    background-position: 100% 100%;
+    transform: scale(1.1);
+}
+
+/* Spezieller Container für die Modus-Buttons */
+.mode-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* WICHTIG: `.mode-button` NACH der allgemeinen `button`-Regel setzen */
+button.mode-button {
+    background: white;  /* Weißer Hintergrund */
+    color: black;  /* Schwarze Schrift */
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.mode-button:hover {
+    background: black;
+    color: white;
+}
+
+/* Markierung für ausgewählte Mode-Buttons */
+button.mode-button.selected {
+    border: 3px solid #933cc8;
+    font-weight: bold;
+}
+
+/* Layout Hauptcontainer */
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+    padding-left: 100px;
+}
+
+
+
+#sketch-holder {
+    margin-top: 100px;
+    padding-top: 10px;
+    margin-left: -270px;
+    flex-grow: 1;
+    width: 40%;
+    max-width: 800px;
+    height: 500px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu h1 {
+    margin-top: 50px;
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Farbpaletten Auswahl */
+.color-palette-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.color-palette-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #dcdce6;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+    background: #fafafa;
+    width: 220px;
+}
+
+.color-palette.selected {
+    border-color: #933cc8;
+}
+
+.color-swatch {
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.color-picker {
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.color-input {
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#custom-palette-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

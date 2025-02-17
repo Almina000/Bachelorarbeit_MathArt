@@ -55,15 +55,10 @@
         // const max_Shape = window[`${profile_Name}_${data_Name}`]?.length || 0;
 
         // const storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  // Falls null, dann leeres Array
-        const dataPath = window[`${profileName}_${dataName}`] || []; 
-        if (dataPath) {
-            localStorage.setItem("dataPath", JSON.stringify(dataPath));
-            console.log("Gespeichert in localStorage:", dataPath);
-        } else {
-            console.error("Daten nicht gefunden:", `${profileName}_${dataName}`);
-        }
+        const data_Path_for_maxShape = localStorage.getItem('dataPath');
+        console.log(`artwork.html - data_Path: ${data_Path_for_maxShape}`);
 
-        const max_Shape = dataPath.length || 0;
+        const max_Shape = data_Path_for_maxShape.length || 0;
       
 
         console.log("Maximale Anzahl der Formen (maxShape):", max_Shape);
@@ -105,7 +100,7 @@
 
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
 
-      <button id="startButton" onclick="startArt()">Weiter</button>
+      <button id="startButton" onclick="startArt()">Anwenden</button>
     </div>
 
     <div id="artwork"></div>
@@ -126,18 +121,18 @@
       }
 
       // Profilname & Datentyp abrufen
-      const profileNameArtwork = localStorage.getItem('profileName');
-      const dataNameArtwork = localStorage.getItem('dataName');
-
+      const data_Path = localStorage.getItem('dataPath');
+      console.log(`artwork.html - data_Path: ${data_Path}`);
+      
       // Datei dynamisch laden
-      const dataFile = `../static/js/data/${profileNameArtwork}_${dataNameArtwork}_count.js`;
+      const dataFile = `../static/js/data/${data_Path}_count.js`;
 
       fetch(dataFile, { method: 'HEAD' })
           .then(response => {
               if (response.ok) {
                   loadScript(dataFile);
               } else {
-                  console.error(`Daten für ${profileNameArtwork}_${dataNameArtwork} nicht gefunden.`);
+                  console.error(`Daten für ${data_Path} nicht gefunden.`);
               }
           })
           .catch(error => console.error("Fehler beim Laden der Datei:", error));
