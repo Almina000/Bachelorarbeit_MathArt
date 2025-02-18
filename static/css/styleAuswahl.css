@@ -103,7 +103,7 @@ h2 {
   width: 35px; /* Etwas größere Fläche */
   height: 35px;
   border-radius: 5px;
-  border: none; /* Entfernt den Rand */
+  border: 1px solid #ddd;
   cursor: pointer;
 }
 
