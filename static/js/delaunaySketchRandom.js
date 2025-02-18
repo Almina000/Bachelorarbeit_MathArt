@@ -35,7 +35,7 @@ console.log("topHashtags:", topHashtags);
 
 let canvas;
 function setup() {
-    
+    console.log("Ich bin in setup()");
     
     canvas = createCanvas(400, 400);
 
@@ -73,6 +73,7 @@ function setup() {
 }
 
 function draw() {
+    console.log("Ich bin in draw()");
     background(255);
 
     // Zeichne die Punkte
