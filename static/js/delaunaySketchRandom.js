@@ -14,7 +14,7 @@ if (storedPalette) {
 }
 
 
-let topHashtags = [];
+let topData = [];
 
 let data_Path_delaunay = localStorage.getItem("dataPath");  
 console.log("dataPath aus LocalStorage:", data_Path_delaunay);
@@ -22,16 +22,16 @@ console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 let storedData = window[data_Path_delaunay] || [];  
 console.log("storedDATA:", storedData);
 
-topHashtags = storedData
+topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
-let maxCount = Math.max(...topHashtags.map(h => h.count));
-let minCount = Math.min(...topHashtags.map(h => h.count));
+// let maxCount = topData.reduce((sum, hashtag) => sum + hashtag.count, 0);
+let maxCount = Math.max(...topData.map(h => h.count));
+let minCount = Math.min(...topData.map(h => h.count));
 
 console.log("maxCount:", maxCount, "minCount:", minCount);
 
-console.log("topHashtags.length:", topHashtags.length);
-console.log("topHashtags:", topHashtags);
+console.log("topData.length:", topData.length);
+console.log("topData:", topData);
 
 let canvas;
 function setup() {
@@ -51,15 +51,15 @@ function setup() {
     let mode = localStorage.getItem('delaunayMode');
     if (mode === 'random') {
         // Generiere zufällige Punkte
-        for (let i = 0; i < topHashtags.length; i++) {
+        for (let i = 0; i < topData.length; i++) {
             seedPoints[i] = createVector(random(width), random(height));
         }
     } else if (mode === 'byFrequency') {
         // Punkte basierend auf Häufigkeit verteilen
-        for (let i = 0; i < topHashtags.length; i++) {
+        for (let i = 0; i < topData.length; i++) {
             let x = random(width); // Zufällige X-Position
-            // let y = constrain(map(topHashtags[i].count, 0, maxCount, height, 0), 0, height);
-            let y = map(Math.log(topHashtags[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
+            // let y = constrain(map(topData[i].count, 0, maxCount, height, 0), 0, height);
+            let y = map(Math.log(topData[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
             y = constrain(y, 0, height);
 
             seedPoints[i] = createVector(x, y);

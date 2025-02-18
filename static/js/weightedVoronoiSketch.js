@@ -2,7 +2,7 @@ let points = [];
 let delaunay, voronoi;
 
 let minCount, maxCount;
-let topHashtags = [];
+let topData = [];
 
 let canvas;
 
@@ -26,13 +26,13 @@ function setup() {
     let storedData = window[data_Path_delaunay] || [];  
     console.log("storedDATA:", storedData);
 
-    topHashtags = storedData
+    topData = storedData
       .sort((a, b) => b.count - a.count)
       .slice(0, x); // Wähle die Top 10 Hashtags
-    maxCount = Math.max(...topHashtags.map(hashtag => hashtag.count));
-    minCount = Math.min(...topHashtags.map(hashtag => hashtag.count));
+    maxCount = Math.max(...topData.map(data => data.count));
+    minCount = Math.min(...topData.map(data => data.count));
 
-    for (let i = 0; i < topHashtags.length; i++) {
+    for (let i = 0; i < topData.length; i++) {
       let x = random(width);
       let y = random(height);
       points.push(createVector(x, y));
@@ -47,7 +47,7 @@ function draw() {
 
   // Zeige die Punkte, skaliert nach `count`
   for (let i = 0; i < points.length; i++) {
-    let hashtag = topHashtags[i];
+    let hashtag = topData[i];
     let weight = map(hashtag.count, minCount, maxCount, 20, 100); // Größere Gewichtung
     fill(map(weight, 5, 50, 50, 200), 100, 200, 150); // Farbgebung basierend auf Gewicht
     noStroke();
@@ -88,7 +88,7 @@ function draw() {
 
   // Verschiebe Punkte stärker basierend auf `count`
   for (let i = 0; i < points.length; i++) {
-    let hashtag = topHashtags[i];
+    let hashtag = topData[i];
     let weight = map(hashtag.count, minCount, maxCount, 1, 5); // Gewichtung erhöht
     points[i].lerp(centroids[i], weight * 0.1); // Mehr Bewegung Richtung Schwerpunkt
   }

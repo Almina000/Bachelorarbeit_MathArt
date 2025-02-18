@@ -80,7 +80,7 @@ function setup() {
   stroke(0);
   rect(rectX, rectY, rectWidth, rectHeight);
 
-  let topHashtags = [];
+  let topData = [];
   // let storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  
 
   // let data_Path = localStorage.getItem("dataPath");  
@@ -106,20 +106,20 @@ function setup() {
 
   console.log("Geladene Daten:", storedData);
 
-  topHashtags = storedData
+  topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
     .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
-  let totalTopCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
+  let totalTopCount = topData.reduce((sum, data) => sum + data.count, 0);
 
-  console.log("topHashtags.length:", topHashtags.length);
-  console.log("topHashtags:", topHashtags);
+  console.log("topData.length:", topData.length);
+  console.log("topData:", topData);
 
   
   let colors = [];  // Initialisiere das Array colors
   let data_Name = localStorage.getItem("dataName");
 
-  if (data_Name == "Pixel") {
-    colors = topHashtags.map(hashtag => hashtag.hashtag);
+  if (data_Name == "colors") {
+    colors = topData.map(colorObj => colorObj.data);
     console.log(colors);
   } else {
     // colors = [
@@ -231,7 +231,7 @@ function setup() {
   let rightCount = Math.floor(totalShapes / 2); // Anzahl der Hashtags rechts
   
   // Zeichne die ersten 5 Hashtags im linken Block
-  for (let index = 0; index < Math.min(leftCount, topHashtags.length); index++) {
+  for (let index = 0; index < Math.min(leftCount, topData.length); index++) {
     fill(colors[index]);
     noStroke();
     ellipse(legendX1 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
@@ -239,11 +239,11 @@ function setup() {
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
-    text(topHashtags[index].hashtag, legendX1 + 30, legendY + index * 30 + 10);
+    text(topData[index].hashtag, legendX1 + 30, legendY + index * 30 + 10);
   }
 
   // Rechter Block
-  for (let index = 0; index < Math.min(rightCount, topHashtags.length - leftCount); index++) {
+  for (let index = 0; index < Math.min(rightCount, topData.length - leftCount); index++) {
     let hashtagIndex = leftCount + index; // Index im gesamten Array
     fill(colors[hashtagIndex]);
     noStroke();
@@ -252,7 +252,7 @@ function setup() {
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
-    text(topHashtags[hashtagIndex].hashtag, legendX2 + 30, legendY + index * 30 + 10);
+    text(topData[hashtagIndex].hashtag, legendX2 + 30, legendY + index * 30 + 10);
   }
 
   ///////////////////////////////////////////////////
@@ -284,7 +284,7 @@ function setup() {
   // Funktion aufrufen
   
   let shapes = predictShape(totalShapes, triangles, circles, rectangles);
-  let surfaceAreas = calculateSurfaceArea(rectWidth, rectHeight, topHashtags, totalTopCount, sizeValue);
+  let surfaceAreas = calculateSurfaceArea(rectWidth, rectHeight, topData, totalTopCount, sizeValue);
   //drawPoints(rectX, rectY, rectWidth, rectHeight);
   console.log(`ShapeArray Kreis: ${shapes}`);
   drawCircleForHashtag(rectX, rectY, rectWidth, rectHeight, colors, surfaceAreas, shapes, filterValue);

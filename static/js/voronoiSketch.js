@@ -14,7 +14,7 @@ if (storedPalette) {
 }
 
 
-let topHashtags = [];
+let topData = [];
 
 let data_Path_delaunay = localStorage.getItem("dataPath");  
 console.log("dataPath aus LocalStorage:", data_Path_delaunay);
@@ -22,16 +22,16 @@ console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 let storedData = window[data_Path_delaunay] || [];  
 console.log("storedDATA:", storedData);
 
-topHashtags = storedData
+topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
-// let maxCount = Math.max(...topHashtags.map(h => h.count));
-// let minCount = Math.min(...topHashtags.map(h => h.count));
+// let maxCount = topData.reduce((sum, data) => sum + hashtag.count, 0);
+// let maxCount = Math.max(...topData.map(h => h.count));
+// let minCount = Math.min(...topData.map(h => h.count));
 
 // console.log("maxCount:", maxCount, "minCount:", minCount);
 
-console.log("topHashtags.length:", topHashtags.length);
-console.log("topHashtags:", topHashtags);
+console.log("topData.length:", topData.length);
+console.log("topData:", topData);
 
 
 let canvas;
@@ -46,7 +46,7 @@ function setup() {
       console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
   }
 
-  for (let i = 0; i < topHashtags.length; i++) {
+  for (let i = 0; i < topData.length; i++) {
     seedPoints[i] = createVector(random(width), random(height));
   }
 
