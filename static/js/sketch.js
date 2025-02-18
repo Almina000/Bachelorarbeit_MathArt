@@ -79,19 +79,6 @@ function setup() {
   rect(rectX, rectY, rectWidth, rectHeight);
 
   let topData = [];
-  // let storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  
-
-  // let data_Path = localStorage.getItem("dataPath");  
-  // console.log("dataPath aus LocalStorage:", data_Path);
-
-  // if (!data_Path) {
-  //     console.warn("Keine Daten verfügbar, versuche erneut zu laden...");
-  //     setTimeout(setup, 500); // Versuche es nach 500ms erneut
-  //     return;
-  // }
-    
-  // let storedData = window[data_Path] || [];  
-  // console.log("storedDATA:", storedData);
 
   let data_Path = localStorage.getItem("dataPath");
   console.log("dataPath aus LocalStorage:", data_Path);
@@ -266,21 +253,21 @@ function setup() {
   let y1 = rectY + rectHeight * goldenRatio;      // Horizontale Linie 1
   let y2 = rectY + rectHeight * (1 - goldenRatio);// Horizontale Linie 2
 
-   // Vertikale Linie 1 (blau)
-  stroke(0, 0, 255); // Blau
-  line(x1, rectY, x1, rectY + rectHeight);
+//    // Vertikale Linie 1 (blau)
+//   stroke(0, 0, 255); // Blau
+//   line(x1, rectY, x1, rectY + rectHeight);
 
-// Vertikale Linie 2 (rot)
-  stroke(255, 0, 0); // Rot
-  line(x2, rectY, x2, rectY + rectHeight);
+// // Vertikale Linie 2 (rot)
+//   stroke(255, 0, 0); // Rot
+//   line(x2, rectY, x2, rectY + rectHeight);
 
-// Horizontale Linie 1 (lila)
-  stroke(128, 0, 128); // Lila
-  line(rectX, y1, rectX + rectWidth, y1);
+// // Horizontale Linie 1 (lila)
+//   stroke(128, 0, 128); // Lila
+//   line(rectX, y1, rectX + rectWidth, y1);
 
-// Horizontale Linie 2 (grün)
-  stroke(0, 255, 0); // Grün
-  line(rectX, y2, rectX + rectWidth, y2);
+// // Horizontale Linie 2 (grün)
+//   stroke(0, 255, 0); // Grün
+//   line(rectX, y2, rectX + rectWidth, y2);
   ////////////////////////////////////////////////////////////////
 
   // Funktion aufrufen
