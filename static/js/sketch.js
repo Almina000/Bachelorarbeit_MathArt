@@ -91,8 +91,6 @@ function setup() {
       setTimeout(setup, 500); // Versuche es nach 500ms erneut
       return;
   }
-
-  console.log("Geladene Daten:", storedData);
     
   let storedData = window[data_Path] || [];  
   console.log("storedDATA:", storedData);
