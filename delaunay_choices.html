@@ -243,7 +243,7 @@
                 console.log(`Daten-Datei gefunden: ${dataFile}`);
                 loadScript(dataFile, function () {
                     console.log("Hashtag-Daten geladen:", window[data_Path]);
-                    localStorage.setItem("storedData", JSON.stringify(window[dataPath] || []));
+                    localStorage.setItem("storedData", JSON.stringify(window[data_Path] || []));
                     loadScript("static/js/delaunaySketchRandom.js", function () {
                         console.log("Delaunay-Skript geladen!");
                     });
