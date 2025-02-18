@@ -100,12 +100,14 @@
       <input type="range" id="sizeSlider" name="sizeSlider" min="0" max="1" step="0.01" value="0.5">
       <span id="sizeValue">0.5</span><br>
 
+      <div class="color-picker-container">
       <label for="backgroundColorPicker">Hintergrundfarbe:</label>
       <div class="color-palette" id="custom-palette" onclick="selectPalette(this, true)">
           <div class="color-picker" id="backgroundColor" style="background-color: #FFFFFF;" onclick="openColorPicker(event, this)"></div>
       </div>
       <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
-
+      </div>
+      
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
 
       <button id="startButton" onclick="startArt()">Anwenden</button>

@@ -81,6 +81,13 @@ h2 {
   color: #333;
   margin-bottom: 20px;
 }
+
+.color-picker-container {
+  display: flex;
+  align-items: center;  /* Sorgt dafür, dass Label und Color-Picker auf einer Linie sind */
+  gap: 10px;  /* Abstand zwischen Label und Color-Picker */
+}
+
 .color-palette {
   display: flex;
   align-items: center;
@@ -93,8 +100,8 @@ h2 {
 
 
 .color-picker {
-  width: 40px; /* Etwas größere Fläche */
-  height: 40px;
+  width: 35px; /* Etwas größere Fläche */
+  height: 35px;
   border-radius: 5px;
   border: none; /* Entfernt den Rand */
   cursor: pointer;
