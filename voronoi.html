@@ -14,7 +14,6 @@
 </head>
 <body>
     
-    <!-- Kreise oben -->
   
     <div class="main-container">
         <div class="menu">
@@ -95,11 +94,11 @@
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
         
             <div class="buttons">
-                <p class="mode-label">Wie sollen die Datenpunkte im Raum verteilt werden?</p>
+                <!-- <p class="mode-label">Wie sollen die Datenpunkte im Raum verteilt werden?</p>
                 <div class="mode-buttons">
                     <button class="button mode-button" onclick="setMode('random')">Random</button>
                     <button class="button mode-button" onclick="setMode('byFrequency')">Nach Häufigkeit</button>
-                </div>
+                </div> -->
                 <button class="button" onclick="safeChanges()">Anwenden</button>
             </div>
             
@@ -138,15 +137,15 @@
             window.location.reload();
 
         }
-        function setMode(mode) {
-            localStorage.setItem('delaunayMode', mode);
+        // function setMode(mode) {
+        //     localStorage.setItem('delaunayMode', mode);
 
-            // Entferne vorherige Auswahl nur von .mode-button
-            document.querySelectorAll('.mode-button').forEach(btn => btn.classList.remove('selected'));
+        //     // Entferne vorherige Auswahl nur von .mode-button
+        //     document.querySelectorAll('.mode-button').forEach(btn => btn.classList.remove('selected'));
 
-            // Markiere den geklickten Button
-            document.querySelector(`button[onclick="setMode('${mode}')"]`).classList.add('selected');
-        }
+        //     // Markiere den geklickten Button
+        //     document.querySelector(`button[onclick="setMode('${mode}')"]`).classList.add('selected');
+        // }
     
         let activePicker = null;
         const colorInput = document.getElementById("colorPickerInput");
@@ -185,11 +184,11 @@
             const activePalette = localStorage.getItem('activePalette');
             const savedPalette = JSON.parse(localStorage.getItem('selectedColorPalette'));
             const savedCustomPalette = JSON.parse(localStorage.getItem('customColorPalette'));
-            const savedMode = localStorage.getItem('delaunayMode');
+            // const savedMode = localStorage.getItem('delaunayMode');
    
-            if (savedMode) {
-                setMode(savedMode);
-            }
+            // if (savedMode) {
+            //     setMode(savedMode);
+            // }
     
             if (savedCustomPalette) {
                 // Stellt sicher, dass die benutzerdefinierte Palette NIE verloren geht
@@ -246,6 +245,6 @@
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
     <script src="static/js/libraries/p5.min.js"></script>
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
-    <script src="static/js/delaunaySketchRandom.js"></script>
+    <script src="static/js/voronoiSketch.js"></script>
 </body>
 </html>
