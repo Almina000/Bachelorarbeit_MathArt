@@ -125,7 +125,8 @@
       console.log(`artwork.html - data_Path: ${data_Path}`);
       
       // Datei dynamisch laden
-      const dataFile = `../static/js/data/${data_Path}_count.js`;
+      // const dataFile = `../static/js/data/${data_Path}_count.js`;
+      const dataFile = `static/js/data/${data_Path}_count.js`;
 
       fetch(dataFile, { method: 'HEAD' })
           .then(response => {
@@ -138,13 +139,21 @@
           .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
 
-    <!-- Statische Skripte, die immer geladen werden -->
-    <script src="../static/js/predictShape.js"></script>
+    <!-- GitHub -->
+    <script src="static/js/predictShape.js"></script>
+    <script src="static/js/surfaceArea.js"></script>
+    <script src="static/js/circle.js"></script>
+    <script src="static/js/calculate_triangles.js"></script>
+    <script src="static/js/calculate_rectangles.js"></script>
+    <script src="static/js/sketch.js"></script>
+
+    <!-- Local Go Live-->
+    <!-- <script src="../static/js/predictShape.js"></script>
     <script src="../static/js/surfaceArea.js"></script>
     <script src="../static/js/circle.js"></script>
     <script src="../static/js/calculate_triangles.js"></script>
     <script src="../static/js/calculate_rectangles.js"></script>
-    <script src="../static/js/sketch.js"></script>
+    <script src="../static/js/sketch.js"></script> -->
 
     <script>
       document.getElementById("triangles").oninput = function() {
