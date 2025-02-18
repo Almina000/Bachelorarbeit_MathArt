@@ -46,7 +46,7 @@ console.log(`gesamt: ${totalShapes}`);
 //let num = 10; //10
 
 function preload() {
-  customFont = loadFont('../static/fonts/AbadiMT-ExtraLight.ttf');
+  customFont = loadFont('static/fonts/AbadiMT-ExtraLight.ttf');
 }
 
 function setup() {
