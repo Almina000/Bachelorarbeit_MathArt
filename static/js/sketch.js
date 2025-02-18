@@ -17,6 +17,11 @@ console.log(`Dreiecke: ${triangles}, Kreise: ${circles}, Rechtecke: ${rectangles
 // }
 const filterValue = localStorage.getItem('filter');
 
+const backgroundColor = localStorage.getItem('pickedbackgroundcolor');
+if (!backgroundColor) {
+  backgroundColor = "#FFFFFF";
+}
+
 if (filterValue === 'true') {
   console.log('Filter ist aktiviert.');
 } else if (filterValue === 'false') {
@@ -72,7 +77,7 @@ function setup() {
   let rectY = canvasHeight * 0.1;
   
   // Hintergrundfarbe nur für das Rechteck
-  fill('#FFFFFF'); // Hellblauer Hintergrund innerhalb des Rechtecks
+  fill(backgroundColor); 
   noStroke(); // Kein Rand
   rect(rectX, rectY, rectWidth, rectHeight);
 

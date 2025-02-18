@@ -100,6 +100,12 @@
       <input type="range" id="sizeSlider" name="sizeSlider" min="0" max="1" step="0.01" value="0.5">
       <span id="sizeValue">0.5</span><br>
 
+      <label for="backgroundColorPicker">Hintergrundfarbe:</label>
+      <div class="color-palette" id="custom-palette" onclick="selectPalette(this, true)">
+          <div class="color-picker" id="backgroundColor" style="background-color: #FFFFFF;" onclick="openColorPicker(event, this)"></div>
+      </div>
+      <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
+
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
 
       <button id="startButton" onclick="startArt()">Anwenden</button>
@@ -107,7 +113,37 @@
 
     <div id="artwork"></div>
 
-    <!-- JS-Dateien dynamisch laden -->
+    <script>
+        let activePicker = null;
+        const colorInput = document.getElementById("colorInput");
+
+        function openColorPicker(event, element) {
+            event.stopPropagation();
+            activePicker = element;
+            colorInput.value = rgbToHex(element.style.backgroundColor);
+            colorInput.click();
+        }
+
+        function updateBackgroundColor(color) {
+            if (activePicker) {
+                activePicker.style.backgroundColor = color;
+                document.body.style.backgroundColor = color; // Setzt die Hintergrundfarbe der Seite
+                localStorage.setItem("pickedbackgroundcolor", color); // Speichert die Farbe im Local Storage
+            }
+        }
+
+        function rgbToHex(rgb) {
+            const result = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            return result ? "#" + (1 << 24 | result[1] << 16 | result[2] << 8 | result[3]).toString(16).slice(1).toUpperCase() : rgb;
+        }
+
+        // Laden der gespeicherten Hintergrundfarbe
+        window.onload = function () {
+            const storedColor = localStorage.getItem("pickedbackgroundcolor") || "#FFFFFF";
+            document.body.style.backgroundColor = storedColor;
+            document.getElementById("backgroundColor").style.backgroundColor = storedColor;
+        };
+    </script>
     <script>
         function loadScript(url, callback) {
             let script = document.createElement("script");

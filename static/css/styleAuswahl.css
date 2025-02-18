@@ -81,6 +81,24 @@ h2 {
   color: #333;
   margin-bottom: 20px;
 }
+.color-palette {
+  display: flex;
+  align-items: center;
+  border: 2px solid #dcdce6;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+  background: #fafafa;
+  width: 220px;
+}
+
+.color-picker {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 
 /* Beschriftung und Slider für Dreiecke, Kreise und Rechtecke */
 label {
