@@ -49,35 +49,23 @@ body, html {
 }
 
 /* Linke Spalte: Menü */
-#container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 #menu {
   position: fixed;
-  left: 20px;
-  width: 300px;
+  top: 70px; /* Abstand zum Button */
+  left: 40px;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#menu2 {
-  position: fixed;
-  right: 20px;
   width: 300px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Rechte Spalte: Kunstwerk */
 #artwork {
-  margin: auto;
-  width: 60%;
+  margin-top: 100px; /* Abstand, damit das Menü nicht das Artwork überlappt */
+  padding-top: 100px;
+  flex-grow: 1;
+  width: 80%;
   max-width: 800px;
   height: 400px;
   background-color: #f9f9f9;
@@ -87,7 +75,6 @@ body, html {
   justify-content: center;
   align-items: center;
 }
-
 
 h2 {
   font-size: 2rem;
