@@ -84,21 +84,22 @@ h2 {
 .color-palette {
   display: flex;
   align-items: center;
-  border: 2px solid #dcdce6;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 10px;
-  transition: border-color 0.3s ease;
-  background: #fafafa;
-  width: 220px;
+  gap: 10px; /* Abstand zwischen Label und Picker */
+  border: none; /* Entfernt die graue Umrandung */
+  padding: 0; /* Entfernt zusätzlichen Innenabstand */
+  background: none; /* Entfernt den Hintergrund */
+  width: auto; /* Verhindert eine feste Breite */
 }
 
+
 .color-picker {
-  width: 30px;
-  height: 30px;
+  width: 40px; /* Etwas größere Fläche */
+  height: 40px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none; /* Entfernt den Rand */
+  cursor: pointer;
 }
+
 
 /* Beschriftung und Slider für Dreiecke, Kreise und Rechtecke */
 label {
