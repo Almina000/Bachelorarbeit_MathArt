@@ -237,6 +237,7 @@ function setup() {
     strokeWeight(1);
     ellipse(legendX1 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
 
+    noStroke();
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
@@ -251,6 +252,7 @@ function setup() {
     strokeWeight(1);
     ellipse(legendX2 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
 
+    noStroke();
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
