@@ -141,17 +141,17 @@
             fetch(dataFile, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        console.log(`✔ Daten-Datei gefunden: ${dataFile}`);
+                        console.log(`Daten-Datei gefunden: ${dataFile}`);
                         loadScript(dataFile, function () {
                             console.log("Hashtag-Daten erfolgreich geladen.");
                             localStorage.setItem("storedData", JSON.stringify(window[dataPath] || []));
                         });
                     } else {
-                        console.warn(`⚠ Daten nicht gefunden für: ${dataPath}, lade Standardwerte...`);
+                        console.warn(`Daten nicht gefunden für: ${dataPath}, lade Standardwerte...`);
                         localStorage.setItem("storedData", JSON.stringify([]));
                     }
-                })
-                .catch(error => console.error("Fehler beim Abrufen der Datei:", error));
+            })
+            .catch(error => console.error("Fehler beim Abrufen der Datei:", error));
         }
     
         // Stelle sicher, dass der Code nach dem Laden ausgeführt wird

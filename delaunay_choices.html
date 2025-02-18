@@ -243,8 +243,7 @@
                 console.log(`Daten-Datei gefunden: ${dataFile}`);
                 loadScript(dataFile, function () {
                     console.log("Hashtag-Daten geladen:", window[data_Path]);
-
-                    // Warte, bis die Hashtag-Daten sicher verfügbar sind, dann lade das Haupt-Skript
+                    localStorage.setItem("storedData", JSON.stringify(window[dataPath] || []));
                     loadScript("static/js/delaunaySketchRandom.js", function () {
                         console.log("Delaunay-Skript geladen!");
                     });
@@ -254,6 +253,7 @@
             }
         })
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
+
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
     <script src="static/js/libraries/p5.min.js"></script>

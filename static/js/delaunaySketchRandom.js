@@ -14,63 +14,83 @@ if (storedPalette) {
 }
 
 
-let topHashtags = [];
+// let topHashtags = [];
 
-let data_Path_delaunay = localStorage.getItem("dataPath");  
-console.log("dataPath aus LocalStorage:", data_Path_delaunay);
+// let data_Path_delaunay = localStorage.getItem("dataPath");  
+// console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 
-let storedData = window[data_Path_delaunay] || [];  
-console.log("storedDATA:", storedData);
+// let storedData = window[data_Path_delaunay] || [];  
+// console.log("storedDATA:", storedData);
 
-topHashtags = storedData
-    .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
-let maxCount = Math.max(...topHashtags.map(h => h.count));
-let minCount = Math.min(...topHashtags.map(h => h.count));
+// topHashtags = storedData
+//     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
+// // let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
+// let maxCount = Math.max(...topHashtags.map(h => h.count));
+// let minCount = Math.min(...topHashtags.map(h => h.count));
 
-console.log("maxCount:", maxCount, "minCount:", minCount);
+// console.log("maxCount:", maxCount, "minCount:", minCount);
 
-console.log("topHashtags.length:", topHashtags.length);
-console.log("topHashtags:", topHashtags);
+// console.log("topHashtags.length:", topHashtags.length);
+// console.log("topHashtags:", topHashtags);
 
 let canvas;
 function setup() {
-    console.log("Setup wird um 2ms verzögert...");
     
-    setTimeout(() => {
-        canvas = createCanvas(400, 400);
+    
+    canvas = createCanvas(400, 400);
 
-        let container = document.getElementById('sketch-holder'); // HTML-Element holen
+    let container = document.getElementById('sketch-holder'); // HTML-Element holen
 
-        if (container) {
-            canvas.parent(container); // Canvas dem Container zuweisen
-        } else {
-            console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
-        }
+    if (container) {
+        canvas.parent(container); // Canvas dem Container zuweisen
+    } else {
+        console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
+    }
         
+    let data_Path = localStorage.getItem("dataPath");
+    console.log("dataPath aus LocalStorage:", data_Path);
 
-        let mode = localStorage.getItem('delaunayMode');
-        if (mode === 'random') {
-            // Generiere zufällige Punkte
-            for (let i = 0; i < topHashtags.length; i++) {
-                seedPoints[i] = createVector(random(width), random(height));
-            }
-        } else if (mode === 'byFrequency') {
-            // Punkte basierend auf Häufigkeit verteilen
-            for (let i = 0; i < topHashtags.length; i++) {
-                let x = random(width); // Zufällige X-Position
-                // let y = constrain(map(topHashtags[i].count, 0, maxCount, height, 0), 0, height);
-                let y = map(Math.log(topHashtags[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
-                y = constrain(y, 0, height);
+    let storedData = window[data_Path] || JSON.parse(localStorage.getItem("storedData")) || [];
+        
+    if (!storedData.length) {
+        console.warn("Keine Hashtag-Daten verfügbar! Stelle sicher, dass die Daten geladen wurden.");
+    }
 
-                seedPoints[i] = createVector(x, y);
-            }
+    console.log("Geladene Daten:", storedData);
+
+    let topHashtags = storedData
+        .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
+        .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
+    let maxCount = Math.max(...topHashtags.map(h => h.count));
+    let minCount = Math.min(...topHashtags.map(h => h.count));
+        
+    console.log("maxCount:", maxCount, "minCount:", minCount);
+        
+    console.log("topHashtags.length:", topHashtags.length);
+    console.log("topHashtags:", topHashtags);
+
+    let mode = localStorage.getItem('delaunayMode');
+    if (mode === 'random') {
+        // Generiere zufällige Punkte
+        for (let i = 0; i < topHashtags.length; i++) {
+            seedPoints[i] = createVector(random(width), random(height));
         }
+    } else if (mode === 'byFrequency') {
+        // Punkte basierend auf Häufigkeit verteilen
+        for (let i = 0; i < topHashtags.length; i++) {
+            let x = random(width); // Zufällige X-Position
+            // let y = constrain(map(topHashtags[i].count, 0, maxCount, height, 0), 0, height);
+            let y = map(Math.log(topHashtags[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
+            y = constrain(y, 0, height);
 
-        // Berechne die Delaunay-Triangulation
-        delaunay = calculateDelaunay(seedPoints);
-        noLoop();
-    }, 2); 
+            seedPoints[i] = createVector(x, y);
+        }
+    }
+
+    // Berechne die Delaunay-Triangulation
+    delaunay = calculateDelaunay(seedPoints);
+    noLoop();
+   
 }
 
 function draw() {
