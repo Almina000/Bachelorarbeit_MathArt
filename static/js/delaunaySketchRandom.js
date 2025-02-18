@@ -60,7 +60,6 @@ function setup() {
 
     let topHashtags = storedData
         .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-        .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
     let maxCount = Math.max(...topHashtags.map(h => h.count));
     let minCount = Math.min(...topHashtags.map(h => h.count));
         
