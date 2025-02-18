@@ -34,6 +34,10 @@
         document.getElementById("circleValue").textContent = storedShapeCounts.circles;
         document.getElementById("rectangleValue").textContent = storedShapeCounts.rectangles;
         document.getElementById("sizeValue").textContent = storedSize;
+
+        const storedColor = localStorage.getItem("pickedbackgroundcolor") || "#FFFFFF";
+        document.body.style.backgroundColor = storedColor;
+        document.getElementById("backgroundColor").style.backgroundColor = storedColor;
       };
 
       function startArt() {
@@ -107,7 +111,7 @@
       </div>
       <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
       </div>
-      
+
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
 
       <button id="startButton" onclick="startArt()">Anwenden</button>
@@ -138,13 +142,6 @@
             const result = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
             return result ? "#" + (1 << 24 | result[1] << 16 | result[2] << 8 | result[3]).toString(16).slice(1).toUpperCase() : rgb;
         }
-
-        // Laden der gespeicherten Hintergrundfarbe
-        window.onload = function () {
-            const storedColor = localStorage.getItem("pickedbackgroundcolor") || "#FFFFFF";
-            document.body.style.backgroundColor = storedColor;
-            document.getElementById("backgroundColor").style.backgroundColor = storedColor;
-        };
     </script>
     <script>
         function loadScript(url, callback) {
