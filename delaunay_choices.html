@@ -229,30 +229,68 @@
             document.head.appendChild(script);
         }
   
-        // Profilname & Datentyp abrufen
-        const data_Path = localStorage.getItem('dataPath');
-        console.log(`artwork.html - data_Path: ${data_Path}`);
+        // // Profilname & Datentyp abrufen
+        // const data_Path = localStorage.getItem('dataPath');
+        // console.log(`artwork.html - data_Path: ${data_Path}`);
         
-        // Datei dynamisch laden
-        // const dataFile = `../static/js/data/${data_Path}_count.js`;
-        const dataFile = `static/js/data/${data_Path}_count.js`;
+        // // Datei dynamisch laden
+        // // const dataFile = `../static/js/data/${data_Path}_count.js`;
+        // const dataFile = `static/js/data/${data_Path}_count.js`;
   
-        fetch(dataFile, { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                console.log(`Daten-Datei gefunden: ${dataFile}`);
-                loadScript(dataFile, function () {
-                    console.log("Hashtag-Daten geladen:", window[data_Path]);
-                    localStorage.setItem("storedData", JSON.stringify(window[data_Path] || []));
-                    loadScript("static/js/delaunaySketchRandom.js", function () {
-                        console.log("Delaunay-Skript geladen!");
-                    });
-                });
-            } else {
-                console.error(`Daten für ${data_Path} nicht gefunden.`);
+        // fetch(dataFile, { method: 'HEAD' })
+        // .then(response => {
+        //     if (response.ok) {
+        //         console.log(`Daten-Datei gefunden: ${dataFile}`);
+        //         loadScript(dataFile, function () {
+        //             console.log("Hashtag-Daten geladen:", window[data_Path]);
+        //             localStorage.setItem("storedData", JSON.stringify(window[data_Path] || []));
+        //             loadScript("static/js/delaunaySketchRandom.js", function () {
+        //                 console.log("Delaunay-Skript geladen!");
+        //             });
+        //         });
+        //     } else {
+        //         console.error(`Daten für ${data_Path} nicht gefunden.`);
+        //     }
+        // })
+        // .catch(error => console.error("Fehler beim Laden der Datei:", error));
+              // Starte erst, wenn das DOM bereit ist
+        document.addEventListener("DOMContentLoaded", function () {
+            const data_Path = localStorage.getItem("dataPath");
+
+            if (!data_Path) {
+                console.error("Kein 'dataPath' gefunden! Daten können nicht geladen werden.");
+                return;
             }
-        })
-        .catch(error => console.error("Fehler beim Laden der Datei:", error));
+
+            console.log(`Lade Daten aus: static/js/data/${data_Path}_count.js`);
+            const dataFile = `static/js/data/${data_Path}_count.js`;
+
+            // Prüfen, ob die Datei existiert, bevor sie geladen wird
+            fetch(dataFile, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`Daten-Datei gefunden: ${dataFile}`);
+                        loadScript(dataFile, function () {
+                            console.log("Hashtag-Daten erfolgreich geladen.");
+                            localStorage.setItem("storedData", JSON.stringify(window[data_Path] || []));
+
+                            // Lade das Delaunay-Skript erst nach den Daten
+                            loadScript("static/js/delaunaySketchRandom.js", function () {
+                                console.log("Delaunay-Skript erfolgreich geladen!");
+                                if (typeof setup === "function") {
+                                    console.log("Starte setup()!");
+                                    setup();
+                                } else {
+                                    console.error("setup() Funktion nicht gefunden!");
+                                }
+                            });
+                        });
+                    } else {
+                        console.error(`Fehler: ${dataFile} nicht gefunden.`);
+                    }
+                })
+                .catch(error => console.error("Fehler beim Laden der Datei:", error));
+        });
 
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
