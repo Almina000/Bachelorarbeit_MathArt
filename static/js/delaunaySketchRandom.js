@@ -101,7 +101,6 @@ function draw() {
         strokeWeight(4);
         point(v.x, v.y);
     }
-    console.log("seedPoints:", seedPoints);
 
     // Zeichne die Dreiecke mit Farben aus der Farbpalette
     let { points, triangles } = delaunay;
@@ -130,7 +129,6 @@ function draw() {
 }
 
 function calculateDelaunay(points) {
-    console.log("points:", points);
     let pointsArray = [];
     for (let v of points) {
         pointsArray.push(v.x, v.y);

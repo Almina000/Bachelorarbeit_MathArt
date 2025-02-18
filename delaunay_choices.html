@@ -7,8 +7,13 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="static/css/styleDelaunay.css">
     <script src="static/js/libraries/p5.min.js"></script>
-    <script src="static/js/libraries/p5.sound.min.js"></script>
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
+    <script src="static/js/libraries/p5.sound.min.js"></script>
+    <style>
+            /* Gesamt-Layout */
+
+        
+    </style>
 </head>
 <body>
 
@@ -107,7 +112,7 @@
         
     </div>
    
-   
+    
     
     <!-- Scripts -->
     <script>
@@ -209,7 +214,6 @@
             }
         });
     </script>
-
     <script>
         function loadScript(url, callback) {
             let script = document.createElement("script");
@@ -252,48 +256,10 @@
             }
         })
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
-              // Starte erst, wenn das DOM bereit ist
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     const data_Path = localStorage.getItem("dataPath");
-
-        //     if (!data_Path) {
-        //         console.error("Kein 'dataPath' gefunden! Daten können nicht geladen werden.");
-        //         return;
-        //     }
-
-        //     console.log(`Lade Daten aus: static/js/data/${data_Path}_count.js`);
-        //     const dataFile = `static/js/data/${data_Path}_count.js`;
-
-        //     // Prüfen, ob die Datei existiert, bevor sie geladen wird
-        //     fetch(dataFile, { method: 'HEAD' })
-        //         .then(response => {
-        //             if (response.ok) {
-        //                 console.log(`Daten-Datei gefunden: ${dataFile}`);
-        //                 loadScript(dataFile, function () {
-        //                     console.log("Hashtag-Daten erfolgreich geladen.");
-        //                     localStorage.setItem("storedData", JSON.stringify(window[data_Path] || []));
-
-        //                     // Lade das Delaunay-Skript erst nach den Daten
-        //                     loadScript("static/js/delaunaySketchRandom.js", function () {
-        //                         console.log("Delaunay-Skript erfolgreich geladen!");
-        //                         if (typeof setup === "function") {
-        //                             console.log("Starte setup()!");
-        //                             setup();
-        //                         } else {
-        //                             console.error("setup() Funktion nicht gefunden!");
-        //                         }
-        //                     });
-        //                 });
-        //             } else {
-        //                 console.error(`Fehler: ${dataFile} nicht gefunden.`);
-        //             }
-        //         })
-        //         .catch(error => console.error("Fehler beim Laden der Datei:", error));
-        // });
 
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
-    
+   
     <!-- <script src="static/js/delaunaySketchRandom.js"></script> -->
 </body>
 </html>
