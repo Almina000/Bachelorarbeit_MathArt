@@ -134,4 +134,6 @@ if (typeof window !== 'undefined') {
     }
   ];
   console.log("Hashtag-Daten erfolgreich geladen:", window.elbenwald_hashtags);
+}else {
+  console.error("Daten aus count.js nicht geladen");
 }
