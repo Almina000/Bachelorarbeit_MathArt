@@ -35,38 +35,42 @@ console.log("topHashtags:", topHashtags);
 
 let canvas;
 function setup() {
-    canvas = createCanvas(400, 400);
-
-    let container = document.getElementById('sketch-holder'); // HTML-Element holen
-
-    if (container) {
-        canvas.parent(container); // Canvas dem Container zuweisen
-    } else {
-        console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
-    }
+    console.log("Setup wird um 2ms verzögert...");
     
+    setTimeout(() => {
+        canvas = createCanvas(400, 400);
 
-    let mode = localStorage.getItem('delaunayMode');
-    if (mode === 'random') {
-        // Generiere zufällige Punkte
-        for (let i = 0; i < topHashtags.length; i++) {
-            seedPoints[i] = createVector(random(width), random(height));
+        let container = document.getElementById('sketch-holder'); // HTML-Element holen
+
+        if (container) {
+            canvas.parent(container); // Canvas dem Container zuweisen
+        } else {
+            console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
         }
-    } else if (mode === 'byFrequency') {
-        // Punkte basierend auf Häufigkeit verteilen
-        for (let i = 0; i < topHashtags.length; i++) {
-            let x = random(width); // Zufällige X-Position
-            // let y = constrain(map(topHashtags[i].count, 0, maxCount, height, 0), 0, height);
-            let y = map(Math.log(topHashtags[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
-            y = constrain(y, 0, height);
+        
 
-            seedPoints[i] = createVector(x, y);
+        let mode = localStorage.getItem('delaunayMode');
+        if (mode === 'random') {
+            // Generiere zufällige Punkte
+            for (let i = 0; i < topHashtags.length; i++) {
+                seedPoints[i] = createVector(random(width), random(height));
+            }
+        } else if (mode === 'byFrequency') {
+            // Punkte basierend auf Häufigkeit verteilen
+            for (let i = 0; i < topHashtags.length; i++) {
+                let x = random(width); // Zufällige X-Position
+                // let y = constrain(map(topHashtags[i].count, 0, maxCount, height, 0), 0, height);
+                let y = map(Math.log(topHashtags[i].count), Math.log(minCount), Math.log(maxCount), height, 0);
+                y = constrain(y, 0, height);
+
+                seedPoints[i] = createVector(x, y);
+            }
         }
-    }
 
-    // Berechne die Delaunay-Triangulation
-    delaunay = calculateDelaunay(seedPoints);
-    noLoop();
+        // Berechne die Delaunay-Triangulation
+        delaunay = calculateDelaunay(seedPoints);
+        noLoop();
+    }, 2); 
 }
 
 function draw() {
