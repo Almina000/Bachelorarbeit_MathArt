@@ -256,13 +256,26 @@
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
-    <script src="static/js/libraries/p5.min.js" onload="p5Ready()" onerror="console.error('Fehler beim Laden von p5.js!');"></script>
+    <script src="static/js/libraries/p5.min.js" 
+        onload="window.p5Ready()" 
+        onerror="console.error('Fehler beim Laden von p5.js!');">
+    </script>
+
     <script>
-        function p5Ready() {
+        window.p5Ready = function() {
             console.log("p5.js wurde erfolgreich geladen!");
             console.log("p5.js geladen?", typeof createCanvas !== "undefined");
-        }
+
+            // Falls setup() von p5.js nicht automatisch gestartet wird, manuell starten
+            if (typeof setup !== "undefined") {
+                console.log("Starte setup() manuell...");
+                setup();
+            } else {
+                console.error("Fehler: setup() ist nicht definiert!");
+            }
+        };
     </script>
+
 
 
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
