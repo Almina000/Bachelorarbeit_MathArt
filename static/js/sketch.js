@@ -17,7 +17,7 @@ console.log(`Dreiecke: ${triangles}, Kreise: ${circles}, Rechtecke: ${rectangles
 // }
 const filterValue = localStorage.getItem('filter');
 
-const backgroundColor = localStorage.getItem('pickedbackgroundcolor');
+let backgroundColor = localStorage.getItem('pickedbackgroundcolor');
 if (!backgroundColor) {
   backgroundColor = "#FFFFFF";
 }
@@ -33,30 +33,23 @@ if (filterValue === 'true') {
 const sizeValue = parseFloat(localStorage.getItem('size')) || 0.5;
 console.log('Größe:', sizeValue);
 
-// sketch.js
-// let profileName = localStorage.getItem("profileName"); 
-// let dataName = localStorage.getItem("dataName"); 
-
-// console.log("Profilname:", profileName);  // Profilname in der Konsole ausgeben
-// console.log("Dataname:", dataName);  // Profilname in der Konsole ausgeben
-
 //___________________________________________________________________________________________
 
-const canvasWidth = 768;
-const canvasHeight = 1080;
+
 
 const totalShapes = triangles + circles + rectangles;
 console.log(`gesamt: ${totalShapes}`);
-
-//let num = 10; //10
 
 function preload() {
   customFont = loadFont('static/fonts/AbadiMT-ExtraLight.ttf');
 }
 
+const canvasWidth = 768;
+const canvasHeight = 1080;
+
 function setup() {
   
-
+ 
   let canvas = createCanvas(canvasWidth, canvasHeight); // Speichere die Canvas-Instanz
 
   let container = document.getElementById('artwork'); // HTML-Element holen
