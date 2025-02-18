@@ -233,26 +233,28 @@ function setup() {
   // Zeichne die ersten 5 Hashtags im linken Block
   for (let index = 0; index < Math.min(leftCount, topData.length); index++) {
     fill(colors[index]);
-    noStroke();
+    stroke(0);
+    strokeWeight(1);
     ellipse(legendX1 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
 
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
-    text(topData[index].hashtag, legendX1 + 30, legendY + index * 30 + 10);
+    text(topData[index].data, legendX1 + 30, legendY + index * 30 + 10);
   }
 
   // Rechter Block
   for (let index = 0; index < Math.min(rightCount, topData.length - leftCount); index++) {
     let hashtagIndex = leftCount + index; // Index im gesamten Array
     fill(colors[hashtagIndex]);
-    noStroke();
+    stroke(0);
+    strokeWeight(1);
     ellipse(legendX2 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
 
     fill(0); // Textfarbe schwarz
     textSize(16); // Schriftgröße anpassen, falls nötig
     textFont(customFont); // Schriftart (stelle sicher, dass customFont geladen wird)
-    text(topData[hashtagIndex].hashtag, legendX2 + 30, legendY + index * 30 + 10);
+    text(topData[hashtagIndex].data, legendX2 + 30, legendY + index * 30 + 10);
   }
 
   ///////////////////////////////////////////////////
