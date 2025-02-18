@@ -1,6 +1,7 @@
 let seedPoints = [];
 let delaunay;
 
+const storedDelaunayCount = localStorage.getItem('delaunayCount');
 const storedPalette = localStorage.getItem('selectedColorPalette');
 let colorPalette = [];
 if (storedPalette) {
@@ -22,7 +23,7 @@ console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 let storedData = window[data_Path_delaunay] || [];  
 console.log("storedDATA:", storedData);
 
-let x = 20;
+let x = storedDelaunayCount;
 topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
     .slice(0, x); // Wähle die Top 10 Hashtags

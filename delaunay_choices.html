@@ -90,6 +90,11 @@
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
         
+            <label for="delaunay-slider">Delaunay Count:</label>
+            <input type="range" id="delaunay-slider" name="delaunay-slider" min="0" max="100" value="30">
+            <span id="delaunay-value">30</span>
+
+
             <div class="buttons">
                 <p class="mode-label">Wie sollen die Datenpunkte im Raum verteilt werden?</p>
                 <div class="mode-buttons">
@@ -173,6 +178,32 @@
             if (!match) return "#FFFFFF";
             return `#${((1 << 24) | (parseInt(match[0]) << 16) | (parseInt(match[1]) << 8) | parseInt(match[2])).toString(16).slice(1).toUpperCase()}`;
         }
+
+         // Funktion zum Speichern des Slidervalues in localStorage
+        function saveDelaunayCount(value) {
+            localStorage.setItem("delaunayCount", value);
+        }
+
+        // Initialisierung des Sliders basierend auf localStorage oder Standardwert
+        document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.getElementById("delaunay-slider");
+            const valueDisplay = document.getElementById("delaunay-value");
+            
+            let storedValue = localStorage.getItem("delaunayCount");
+            if (storedValue !== null) {
+                slider.value = storedValue;
+                valueDisplay.textContent = storedValue;
+            } else {
+                slider.value = 30; // Standardwert
+                valueDisplay.textContent = 30;
+            }
+
+            // Event-Listener für Änderungen am Slider
+            slider.addEventListener("input", function () {
+                valueDisplay.textContent = slider.value;
+                saveDelaunayCount(slider.value);
+            });
+        });
     
         // Wiederherstellen der letzten Auswahl beim Laden
         window.addEventListener('load', function () {
