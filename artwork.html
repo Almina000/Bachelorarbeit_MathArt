@@ -80,51 +80,44 @@
     </script>
   </head>
   <body>
-    <div id="container">
-        <div id="menu">
-          <h2>Einstellungen</h2>
+    <div id="menu">
+      <h2>Einstellungen</h2>
 
-          <label for="triangles">Dreiecke:</label>
-          <input type="range" id="triangles" name="triangles" min="0" max="10" value="5">
-          <span id="triangleValue">5</span><br>
+      <label for="triangles">Dreiecke:</label>
+      <input type="range" id="triangles" name="triangles" min="0" max="10" value="5">
+      <span id="triangleValue">5</span><br>
 
-          <label for="circles">Kreise:</label>
-          <input type="range" id="circles" name="circles" min="0" max="10" value="5">
-          <span id="circleValue">5</span><br>
+      <label for="circles">Kreise:</label>
+      <input type="range" id="circles" name="circles" min="0" max="10" value="5">
+      <span id="circleValue">5</span><br>
 
-          <label for="rectangles">Rechtecke:</label>
-          <input type="range" id="rectangles" name="rectangles" min="0" max="10" value="5">
-          <span id="rectangleValue">5</span><br>
+      <label for="rectangles">Rechtecke:</label>
+      <input type="range" id="rectangles" name="rectangles" min="0" max="10" value="5">
+      <span id="rectangleValue">5</span><br>
 
-          <label for="filterCheckbox" class="filter-label">
-            Filter für Kreise aktivieren:
-            <input type="checkbox" id="filterCheckbox">
-          </label>
+      <label for="filterCheckbox" class="filter-label">
+        Filter für Kreise aktivieren:
+        <input type="checkbox" id="filterCheckbox">
+      </label>
 
-          <label for="sizeSlider">Größe:</label>
-          <input type="range" id="sizeSlider" name="sizeSlider" min="0" max="1" step="0.01" value="0.5">
-          <span id="sizeValue">0.5</span><br>
+      <label for="sizeSlider">Größe:</label>
+      <input type="range" id="sizeSlider" name="sizeSlider" min="0" max="1" step="0.01" value="0.5">
+      <span id="sizeValue">0.5</span><br>
 
-          <div class="color-picker-container">
-          <label for="backgroundColorPicker">Hintergrundfarbe:</label>
-          <div class="color-palette" id="custom-palette" onclick="selectPalette(this, true)">
-              <div class="color-picker" id="backgroundColor" style="background-color: #FFFFFF;" onclick="openColorPicker(event, this)"></div>
-          </div>
-          <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
-          </div>
-
-          <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
-
-          <button id="startButton" onclick="startArt()">Anwenden</button>
-        </div>
-
-        <div id="artwork"></div>
-        
-        <div id="menu2">
-          <h2>Legende</h2>
-          <div id="shapeColors"></div>
+      <div class="color-picker-container">
+      <label for="backgroundColorPicker">Hintergrundfarbe:</label>
+      <div class="color-palette" id="custom-palette" onclick="selectPalette(this, true)">
+          <div class="color-picker" id="backgroundColor" style="background-color: #FFFFFF;" onclick="openColorPicker(event, this)"></div>
       </div>
+      <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
+      </div>
+
+      <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
+
+      <button id="startButton" onclick="startArt()">Anwenden</button>
     </div>
+
+    <div id="artwork"></div>
 
     <script>
         let activePicker = null;
@@ -231,12 +224,5 @@
         document.getElementById("sizeValue").textContent = this.value;
       };
     </script>
-    <script src="static/js/shapeColors.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", initShapeColors);
-    </script>
-    
-    
-    
   </body>
 </html>
