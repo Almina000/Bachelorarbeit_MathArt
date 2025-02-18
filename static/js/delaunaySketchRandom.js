@@ -22,9 +22,10 @@ console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 let storedData = window[data_Path_delaunay] || [];  
 console.log("storedDATA:", storedData);
 
+let x = 20;
 topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// let maxCount = topData.reduce((sum, hashtag) => sum + hashtag.count, 0);
+    .slice(0, x); // Wähle die Top 10 Hashtags
 let maxCount = Math.max(...topData.map(h => h.count));
 let minCount = Math.min(...topData.map(h => h.count));
 
