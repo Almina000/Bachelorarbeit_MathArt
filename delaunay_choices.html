@@ -247,22 +247,33 @@
         //     })
         //     .catch(error => console.error("Fehler beim Laden der Datei:", error));
         fetch(dataFile, { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                console.log(`Daten-Datei gefunden: ${dataFile}`);
-                loadScript(dataFile, function () {
-                    console.log("Hashtag-Daten geladen:", window[data_Path]);
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Daten-Datei gefunden: ${dataFile}`);
+                    loadScript(dataFile, function () {
+                        console.log("Hashtag-Daten geladen:", window[data_Path]);
 
-                    // Warte, bis die Hashtag-Daten sicher verfügbar sind, dann lade das Haupt-Skript
-                    loadScript("static/js/delaunaySketchRandom.js", function () {
-                        console.log("🚀 Delaunay-Skript geladen!");
+                        // Warten, bis die Daten verfügbar sind
+                        let checkDataInterval = setInterval(() => {
+                            if (window[data_Path] && window[data_Path].length > 0) {
+                                clearInterval(checkDataInterval); // Stoppe das Intervall
+                                console.log("Daten vollständig geladen! Starte Haupt-Skript...");
+
+                                // Jetzt erst das Haupt-Skript laden!
+                                loadScript("static/js/delaunaySketchRandom.js", function () {
+                                    console.log("Delaunay-Skript geladen!");
+                                });
+                            } else {
+                                console.warn("Warten auf Daten...");
+                            }
+                        }, 100); // Alle 100ms prüfen, ob die Daten geladen wurden
                     });
-                });
-            } else {
-                console.error(`Daten für ${data_Path} nicht gefunden.`);
-            }
-        })
-        .catch(error => console.error("Fehler beim Laden der Datei:", error));
+                } else {
+                    console.error(`Daten für ${data_Path} nicht gefunden.`);
+                }
+            })
+            .catch(error => console.error("Fehler beim Laden der Datei:", error));
+
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
     <script src="static/js/libraries/p5.min.js"></script>
