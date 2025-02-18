@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: 'AbadiMT-ExtraLight';
-  src: url('../static/fonts/AbadiMT-ExtraLight.ttf') format('truetype');
+  src: url('../fonts/AbadiMT-ExtraLight.ttf') format('truetype');
 }
 
 * {
