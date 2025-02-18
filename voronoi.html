@@ -210,7 +210,7 @@
             }
         });
     </script>
-    <script>
+       <script>
         function loadScript(url, callback) {
             let script = document.createElement("script");
             script.type = "text/javascript";
@@ -219,6 +219,10 @@
             script.onload = function () {
                 console.log(`Script ${url} geladen.`);
                 if (callback) callback();
+            };
+
+            script.onerror = function () {
+                console.error(`Fehler beim Laden des Scripts: ${url}`);
             };
   
             document.head.appendChild(script);
@@ -233,18 +237,26 @@
         const dataFile = `static/js/data/${data_Path}_count.js`;
   
         fetch(dataFile, { method: 'HEAD' })
-            .then(response => {
-                if (response.ok) {
-                    loadScript(dataFile);
-                } else {
-                    console.error(`Daten für ${data_Path} nicht gefunden.`);
-                }
-            })
-            .catch(error => console.error("Fehler beim Laden der Datei:", error));
+        .then(response => {
+            if (response.ok) {
+                console.log(`Daten-Datei gefunden: ${dataFile}`);
+                loadScript(dataFile, function () {
+                    console.log("Hashtag-Daten geladen:", window[data_Path]);
+
+                    // Warte, bis die Hashtag-Daten sicher verfügbar sind, dann lade das Haupt-Skript
+                    loadScript("static/js/voronoiSketch.js", function () {
+                        console.log("Delaunay-Skript geladen!");
+                    });
+                });
+            } else {
+                console.error(`Daten für ${data_Path} nicht gefunden.`);
+            }
+        })
+        .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
     <script src="static/js/libraries/p5.min.js"></script>
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
-    <script src="static/js/voronoiSketch.js"></script>
+    <!-- <script src="static/js/voronoiSketch.js"></script> -->
 </body>
 </html>

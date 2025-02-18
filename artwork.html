@@ -119,6 +119,10 @@
               if (callback) callback();
           };
 
+          script.onerror = function () {
+              console.error(`Fehler beim Laden des Scripts: ${url}`);
+          };
+
           document.head.appendChild(script);
       }
 
@@ -131,23 +135,52 @@
       const dataFile = `static/js/data/${data_Path}_count.js`;
 
       fetch(dataFile, { method: 'HEAD' })
-          .then(response => {
-              if (response.ok) {
-                  loadScript(dataFile);
-              } else {
-                  console.error(`Daten für ${data_Path} nicht gefunden.`);
-              }
-          })
-          .catch(error => console.error("Fehler beim Laden der Datei:", error));
+      .then(response => {
+          if (response.ok) {
+              console.log(`Daten-Datei gefunden: ${dataFile}`);
+              loadScript(dataFile, function () {
+                  console.log("Hashtag-Daten geladen:", window[data_Path]);
+
+                  // Warte, bis die Hashtag-Daten sicher verfügbar sind, dann lade das Haupt-Skript
+                  loadScript("static/js/predictShape.js", function () {
+                        console.log("🔹 predictShape.js geladen!");
+
+                        loadScript("static/js/surfaceArea.js", function () {
+                            console.log("🔹 surfaceArea.js geladen!");
+
+                            loadScript("static/js/circle.js", function () {
+                                console.log("🔹 circle.js geladen!");
+
+                                loadScript("static/js/calculate_triangles.js", function () {
+                                    console.log("🔹 calculate_triangles.js geladen!");
+
+                                    loadScript("static/js/calculate_rectangles.js", function () {
+                                        console.log("🔹 calculate_rectangles.js geladen!");
+
+                                        loadScript("static/js/sketch.js", function () {
+                                            console.log("🚀 Alle Skripte geladen! Anwendung bereit.");
+                                        });
+                                    });
+                                });
+                            });
+                         });
+                   });
+                
+              });
+          } else {
+              console.error(`Daten für ${data_Path} nicht gefunden.`);
+          }
+      })
+      .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
 
     <!-- GitHub -->
-    <script src="static/js/predictShape.js"></script>
+    <!-- <script src="static/js/predictShape.js"></script>
     <script src="static/js/surfaceArea.js"></script>
     <script src="static/js/circle.js"></script>
     <script src="static/js/calculate_triangles.js"></script>
     <script src="static/js/calculate_rectangles.js"></script>
-    <script src="static/js/sketch.js"></script>
+    <script src="static/js/sketch.js"></script> -->
 
     <!-- Local Go Live-->
     <!-- <script src="../static/js/predictShape.js"></script>

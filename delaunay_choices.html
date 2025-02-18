@@ -237,15 +237,6 @@
         // const dataFile = `../static/js/data/${data_Path}_count.js`;
         const dataFile = `static/js/data/${data_Path}_count.js`;
   
-        // fetch(dataFile, { method: 'HEAD' })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             loadScript(dataFile);
-        //         } else {
-        //             console.error(`Daten für ${data_Path} nicht gefunden.`);
-        //         }
-        //     })
-        //     .catch(error => console.error("Fehler beim Laden der Datei:", error));
         fetch(dataFile, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
