@@ -16,10 +16,10 @@ if (storedPalette) {
 
 let topHashtags = [];
 
-let data_Path = localStorage.getItem("dataPath");  
-console.log("dataPath aus LocalStorage:", data_Path);
+let data_Path_delaunay = localStorage.getItem("dataPath");  
+console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 
-let storedData = window[data_Path] || [];  
+let storedData = window[data_Path_delaunay] || [];  
 console.log("storedDATA:", storedData);
 
 topHashtags = storedData
