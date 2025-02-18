@@ -83,17 +83,28 @@ function setup() {
   let topHashtags = [];
   // let storedData = JSON.parse(localStorage.getItem("dataPath")) || [];  
 
-  let data_Path = localStorage.getItem("dataPath");  
+  // let data_Path = localStorage.getItem("dataPath");  
+  // console.log("dataPath aus LocalStorage:", data_Path);
+
+  // if (!data_Path) {
+  //     console.warn("Keine Daten verfügbar, versuche erneut zu laden...");
+  //     setTimeout(setup, 500); // Versuche es nach 500ms erneut
+  //     return;
+  // }
+    
+  // let storedData = window[data_Path] || [];  
+  // console.log("storedDATA:", storedData);
+
+  let data_Path = localStorage.getItem("dataPath");
   console.log("dataPath aus LocalStorage:", data_Path);
 
-  if (!data_Path) {
-      console.warn("Keine Daten verfügbar, versuche erneut zu laden...");
-      setTimeout(setup, 500); // Versuche es nach 500ms erneut
-      return;
-  }
+  let storedData = window[data_Path] || JSON.parse(localStorage.getItem("storedData")) || [];
     
-  let storedData = window[data_Path] || [];  
-  console.log("storedDATA:", storedData);
+  if (!storedData.length) {
+      console.warn("Keine Hashtag-Daten verfügbar! Stelle sicher, dass die Daten geladen wurden.");
+  }
+
+  console.log("Geladene Daten:", storedData);
 
   topHashtags = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
