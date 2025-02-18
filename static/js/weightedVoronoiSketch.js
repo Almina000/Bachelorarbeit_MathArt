@@ -1,15 +1,27 @@
 let points = [];
 let delaunay, voronoi;
 
-const x = 20; // Anzahl der Top-Hashtags
-let topHashtags = elbenwald_hashtagData
-  .sort((a, b) => b.count - a.count)
-  .slice(0, x); // Wähle die Top 10 Hashtags
-let maxCount = Math.max(...topHashtags.map(hashtag => hashtag.count));
-let minCount = Math.min(...topHashtags.map(hashtag => hashtag.count));
+let minCount, maxCount;
+let topHashtags = [];
+
+ // Anzahl der Top-Hashtags
+
 
 function setup() {
   createCanvas(600, 600);
+  const x = 20;
+  let data_Path_delaunay = localStorage.getItem("dataPath");  
+  console.log("dataPath aus LocalStorage:", data_Path_delaunay);
+
+  let storedData = window[data_Path_delaunay] || [];  
+  console.log("storedDATA:", storedData);
+
+  topHashtags = storedData
+    .sort((a, b) => b.count - a.count)
+    .slice(0, x); // Wähle die Top 10 Hashtags
+  maxCount = Math.max(...topHashtags.map(hashtag => hashtag.count));
+  minCount = Math.min(...topHashtags.map(hashtag => hashtag.count));
+
   for (let i = 0; i < topHashtags.length; i++) {
     let x = random(width);
     let y = random(height);
