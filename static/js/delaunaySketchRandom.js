@@ -14,24 +14,24 @@ if (storedPalette) {
 }
 
 
-// let topHashtags = [];
+let topHashtags = [];
 
-// let data_Path_delaunay = localStorage.getItem("dataPath");  
-// console.log("dataPath aus LocalStorage:", data_Path_delaunay);
+let data_Path_delaunay = localStorage.getItem("dataPath");  
+console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 
-// let storedData = window[data_Path_delaunay] || [];  
-// console.log("storedDATA:", storedData);
+let storedData = window[data_Path_delaunay] || [];  
+console.log("storedDATA:", storedData);
 
-// topHashtags = storedData
-//     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// // let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
-// let maxCount = Math.max(...topHashtags.map(h => h.count));
-// let minCount = Math.min(...topHashtags.map(h => h.count));
+topHashtags = storedData
+    .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
+// let maxCount = topHashtags.reduce((sum, hashtag) => sum + hashtag.count, 0);
+let maxCount = Math.max(...topHashtags.map(h => h.count));
+let minCount = Math.min(...topHashtags.map(h => h.count));
 
-// console.log("maxCount:", maxCount, "minCount:", minCount);
+console.log("maxCount:", maxCount, "minCount:", minCount);
 
-// console.log("topHashtags.length:", topHashtags.length);
-// console.log("topHashtags:", topHashtags);
+console.log("topHashtags.length:", topHashtags.length);
+console.log("topHashtags:", topHashtags);
 
 let canvas;
 function setup() {
@@ -47,26 +47,6 @@ function setup() {
         console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
     }
         
-    let data_Path = localStorage.getItem("dataPath");
-    console.log("dataPath aus LocalStorage:", data_Path);
-
-    let storedData = window[data_Path] || JSON.parse(localStorage.getItem("storedData")) || [];
-        
-    if (!storedData.length) {
-        console.warn("Keine Hashtag-Daten verfügbar! Stelle sicher, dass die Daten geladen wurden.");
-    }
-
-    console.log("Geladene Daten:", storedData);
-
-    let topHashtags = storedData
-        .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-    let maxCount = Math.max(...topHashtags.map(h => h.count));
-    let minCount = Math.min(...topHashtags.map(h => h.count));
-        
-    console.log("maxCount:", maxCount, "minCount:", minCount);
-        
-    console.log("topHashtags.length:", topHashtags.length);
-    console.log("topHashtags:", topHashtags);
 
     let mode = localStorage.getItem('delaunayMode');
     if (mode === 'random') {
