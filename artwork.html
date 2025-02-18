@@ -21,6 +21,7 @@
         const storedShapeCounts = JSON.parse(localStorage.getItem("shapeCounts")) || { triangles: 5, circles: 5, rectangles: 5 };
         const storedSize = localStorage.getItem("size") || "0.5";
         const storedFilter = localStorage.getItem("filter") === "true";
+        const storedColorCheck = localStorage.getItem("colorData") === "true";
 
         // Werte in die UI setzen
         document.getElementById("triangles").value = storedShapeCounts.triangles;
@@ -28,6 +29,7 @@
         document.getElementById("rectangles").value = storedShapeCounts.rectangles;
         document.getElementById("sizeSlider").value = storedSize;
         document.getElementById("filterCheckbox").checked = storedFilter;
+        document.getElementById("colorCheckbox").checked = storedColorCheck;
 
         // Werte in der Anzeige aktualisieren
         document.getElementById("triangleValue").textContent = storedShapeCounts.triangles;
@@ -48,6 +50,9 @@
 
         const filter = document.getElementById("filterCheckbox").checked;
         localStorage.setItem("filter", filter);
+
+        const colorData = document.getElementById("colorCheckbox").checked;
+        localStorage.setItem("colorData", colorData);
 
         const size = parseFloat(document.getElementById("sizeSlider").value);
         localStorage.setItem("size", size);
@@ -111,6 +116,11 @@
       </div>
       <input type="color" id="colorInput" style="display: none;" onchange="updateBackgroundColor(this.value)">
       </div>
+
+      <label for="colorCheckbox" class="color-label">
+        Profil-Farben als Farbpalette:
+        <input type="checkbox" id="colorCheckbox">
+      </label>
 
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
 

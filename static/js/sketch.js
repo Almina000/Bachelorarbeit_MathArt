@@ -10,17 +10,27 @@ console.log(`Dreiecke: ${triangles}, Kreise: ${circles}, Rechtecke: ${rectangles
 
 const filterValue = localStorage.getItem('filter');
 
-let backgroundColor = localStorage.getItem('pickedbackgroundcolor');
-if (!backgroundColor) {
-  backgroundColor = "#FFFFFF";
-}
-
 if (filterValue === 'true') {
   console.log('Filter ist aktiviert.');
 } else if (filterValue === 'false') {
   console.log('Filter ist deaktiviert.');
 } else {
   console.log('Filter-Zustand ist undefiniert oder nicht gesetzt.');
+}
+
+const colorDataValue = localStorage.getItem('colorData');
+
+if (colorDataValue === 'true') {
+  console.log('colorData ist aktiviert.');
+} else if (colorDataValue === 'false') {
+  console.log('colorData ist deaktiviert.');
+} else {
+  console.log('colorData-Zustand ist undefiniert oder nicht gesetzt.');
+}
+
+let backgroundColor = localStorage.getItem('pickedbackgroundcolor');
+if (!backgroundColor) {
+  backgroundColor = "#FFFFFF";
 }
 
 const sizeValue = parseFloat(localStorage.getItem('size')) || 0.5;
@@ -96,7 +106,7 @@ function setup() {
   let colors = [];  // Initialisiere das Array colors
   let data_Name = localStorage.getItem("dataName");
 
-  if (data_Name == "colors") {
+  if (data_Name == "colors" || colorDataValue === "true") {
     colors = topData.map(colorObj => colorObj.data);
     console.log(colors);
   } else {
