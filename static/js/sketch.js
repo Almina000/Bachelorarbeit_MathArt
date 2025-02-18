@@ -20,13 +20,14 @@ if (filterValue === 'true') {
 
 const colorDataValue = localStorage.getItem('colorData');
 
-if (colorDataValue === 'true') {
-  console.log('colorData ist aktiviert.');
-} else if (colorDataValue === 'false') {
-  console.log('colorData ist deaktiviert.');
+if (colorDataValue === "true") {
+  console.log("colorData ist aktiviert.");
+} else if (colorDataValue === "false") {
+  console.log("colorData ist deaktiviert.");
 } else {
-  console.log('colorData-Zustand ist undefiniert oder nicht gesetzt.');
+  console.log("colorData-Zustand ist undefiniert oder nicht gesetzt.");
 }
+
 
 let backgroundColor = localStorage.getItem('pickedbackgroundcolor');
 if (!backgroundColor) {

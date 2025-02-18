@@ -53,6 +53,8 @@
 
         const colorData = document.getElementById("colorCheckbox").checked;
         localStorage.setItem("colorData", colorData);
+        console.log("Gespeicherter Wert von colorData:", localStorage.getItem("colorData"));
+
 
         const size = parseFloat(document.getElementById("sizeSlider").value);
         localStorage.setItem("size", size);
