@@ -6,11 +6,8 @@
     <title>Geometrie-Tools</title>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="static/css/styleDelaunay.css">
-    <style>
-            /* Gesamt-Layout */
-
-        
-    </style>
+    <script src="static/js/libraries/p5.min.js"></script>
+    <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
 </head>
 <body>
 
@@ -145,7 +142,7 @@
             document.querySelectorAll('.mode-button').forEach(btn => btn.classList.remove('selected'));
 
             // Markiere den geklickten Button
-            document.querySelector(button[onclick="setMode('${mode}')"]).classList.add('selected');
+            document.querySelector(`button[onclick="setMode('${mode}')"]`)?.classList.add('selected');
         }
     
         let activePicker = null;
@@ -256,8 +253,7 @@
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
-    <script src="static/js/libraries/p5.min.js"></script>
-    <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
+    
     <!-- <script src="static/js/delaunaySketchRandom.js"></script> -->
 </body>
 </html>
