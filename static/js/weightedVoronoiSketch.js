@@ -4,32 +4,42 @@ let delaunay, voronoi;
 let minCount, maxCount;
 let topHashtags = [];
 
- // Anzahl der Top-Hashtags
-
+let canvas;
 
 function setup() {
-  createCanvas(600, 600);
-  const x = 20;
-  let data_Path_delaunay = localStorage.getItem("dataPath");  
-  console.log("dataPath aus LocalStorage:", data_Path_delaunay);
+    console.log("Ich bin in setup()");
+    
+    canvas = createCanvas(400, 400);
 
-  let storedData = window[data_Path_delaunay] || [];  
-  console.log("storedDATA:", storedData);
+    let container = document.getElementById('sketch-holder'); // HTML-Element holen
 
-  topHashtags = storedData
-    .sort((a, b) => b.count - a.count)
-    .slice(0, x); // Wähle die Top 10 Hashtags
-  maxCount = Math.max(...topHashtags.map(hashtag => hashtag.count));
-  minCount = Math.min(...topHashtags.map(hashtag => hashtag.count));
+    if (container) {
+        canvas.parent(container); // Canvas dem Container zuweisen
+    } else {
+        console.error("Der Container 'sketch-holder' existiert nicht im DOM.");
+    }
+          
+    const x = 20;
+    let data_Path_delaunay = localStorage.getItem("dataPath");  
+    console.log("dataPath aus LocalStorage:", data_Path_delaunay);
 
-  for (let i = 0; i < topHashtags.length; i++) {
-    let x = random(width);
-    let y = random(height);
-    points.push(createVector(x, y));
-  }
+    let storedData = window[data_Path_delaunay] || [];  
+    console.log("storedDATA:", storedData);
 
-  delaunay = calculateDelaunay(points);
-  voronoi = delaunay.voronoi([0, 0, width, height]);
+    topHashtags = storedData
+      .sort((a, b) => b.count - a.count)
+      .slice(0, x); // Wähle die Top 10 Hashtags
+    maxCount = Math.max(...topHashtags.map(hashtag => hashtag.count));
+    minCount = Math.min(...topHashtags.map(hashtag => hashtag.count));
+
+    for (let i = 0; i < topHashtags.length; i++) {
+      let x = random(width);
+      let y = random(height);
+      points.push(createVector(x, y));
+    }
+
+    delaunay = calculateDelaunay(points);
+    voronoi = delaunay.voronoi([0, 0, width, height]);
 }
 
 function draw() {
