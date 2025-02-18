@@ -50,6 +50,7 @@ function preload() {
 }
 
 function setup() {
+  
 
   let canvas = createCanvas(canvasWidth, canvasHeight); // Speichere die Canvas-Instanz
 
@@ -85,6 +86,14 @@ function setup() {
   let data_Path = localStorage.getItem("dataPath");  
   console.log("dataPath aus LocalStorage:", data_Path);
 
+  if (!data_Path) {
+      console.warn("Keine Daten verfügbar, versuche erneut zu laden...");
+      setTimeout(setup, 500); // Versuche es nach 500ms erneut
+      return;
+  }
+
+  console.log("Geladene Daten:", storedData);
+    
   let storedData = window[data_Path] || [];  
   console.log("storedDATA:", storedData);
 

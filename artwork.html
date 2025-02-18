@@ -109,37 +109,55 @@
 
     <!-- JS-Dateien dynamisch laden -->
     <script>
-      function loadScript(url, callback) {
-          let script = document.createElement("script");
-          script.type = "text/javascript";
-          script.src = url;
-
-          script.onload = function () {
-              console.log(`Script ${url} geladen.`);
-              if (callback) callback();
-          };
-
-          document.head.appendChild(script);
-      }
-
-      // Profilname & Datentyp abrufen
-      const data_Path = localStorage.getItem('dataPath');
-      console.log(`artwork.html - data_Path: ${data_Path}`);
-      
-      // Datei dynamisch laden
-      // const dataFile = `../static/js/data/${data_Path}_count.js`;
-      const dataFile = `static/js/data/${data_Path}_count.js`;
-
-      fetch(dataFile, { method: 'HEAD' })
-          .then(response => {
-              if (response.ok) {
-                  loadScript(dataFile);
-              } else {
-                  console.error(`Daten für ${data_Path} nicht gefunden.`);
-              }
-          })
-          .catch(error => console.error("Fehler beim Laden der Datei:", error));
+        function loadScript(url, callback) {
+            let script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = url;
+    
+            script.onload = function () {
+                console.log(`Script ${url} erfolgreich geladen.`);
+                if (callback) callback();
+            };
+    
+            script.onerror = function () {
+                console.error(`Fehler beim Laden von ${url}`);
+            };
+    
+            document.head.appendChild(script);
+        }
+    
+        function loadDataScript() {
+            const dataPath = localStorage.getItem("dataPath");
+    
+            if (!dataPath) {
+                console.error("Fehler: 'dataPath' nicht im localStorage gefunden!");
+                return;
+            }
+    
+            console.log(`Lade Daten für: ${dataPath}`);
+    
+            const dataFile = `static/js/data/${dataPath}_count.js`;
+    
+            fetch(dataFile, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`✔ Daten-Datei gefunden: ${dataFile}`);
+                        loadScript(dataFile, function () {
+                            console.log("Hashtag-Daten erfolgreich geladen.");
+                            localStorage.setItem("storedData", JSON.stringify(window[dataPath] || []));
+                        });
+                    } else {
+                        console.warn(`⚠ Daten nicht gefunden für: ${dataPath}, lade Standardwerte...`);
+                        localStorage.setItem("storedData", JSON.stringify([]));
+                    }
+                })
+                .catch(error => console.error("Fehler beim Abrufen der Datei:", error));
+        }
+    
+        // Stelle sicher, dass der Code nach dem Laden ausgeführt wird
+        document.addEventListener("DOMContentLoaded", loadDataScript);
     </script>
+  
 
     <!-- GitHub -->
     <script src="static/js/predictShape.js"></script>
