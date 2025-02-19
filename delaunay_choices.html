@@ -194,33 +194,19 @@
             const slider = document.getElementById("delaunay-slider");
             const valueDisplay = document.getElementById("delaunay-value");
 
-            let storedLength = localStorage.getItem("delaunayCount");
-            if (storedLength !== null) {
-                const length = parseInt(storedLength, 10);
-                const halfLength = Math.ceil(length / 2);
+            const maxCount = parseInt(localStorage.getItem("delaunayMaxCount"), 10) || 100;
+            const storedValue = parseInt(localStorage.getItem("delaunayCount"), 10) || Math.ceil(maxCount / 2);
 
-                slider.max = length;              // Max-Wert auf Länge setzen
-                slider.value = halfLength;        // Standardwert: Hälfte
-                valueDisplay.textContent = halfLength;
+            slider.max = maxCount;              // Max-Wert festlegen
+            slider.value = storedValue;         // Aktueller Wert aus LocalStorage
+            valueDisplay.textContent = storedValue;
 
-                // Slider-Wert speichern
-                saveDelaunayCount(halfLength);
-
-                console.log(`Slider initialisiert: max=${length}, value=${halfLength}`);
-            } else {
-                slider.max = 100;   // Fallback falls keine Länge vorhanden ist
-                slider.value = 30;  // Standardwert
-                valueDisplay.textContent = 30;
-
-                console.warn("Keine Länge im LocalStorage gefunden, Standardwerte werden verwendet.");
-            }
-
-            // Event-Listener für Slider-Änderungen
             slider.addEventListener("input", function () {
                 valueDisplay.textContent = slider.value;
-                saveDelaunayCount(slider.value);
+                localStorage.setItem("delaunayCount", slider.value); // Speichere aktuellen Wert
             });
         });
+
 
     
         // Wiederherstellen der letzten Auswahl beim Laden
@@ -291,8 +277,8 @@
 
                     if (window[data_Path] && Array.isArray(window[data_Path])) {
                         const dataLength = window[data_Path].length;
-                        localStorage.setItem('delaunayCount', dataLength); // Länge im LocalStorage speichern
-                        console.log(`Länge von ${data_Path} (${dataLength}) im LocalStorage gespeichert.`);
+                        localStorage.setItem('delaunayMaxCount', dataLength); // Speichere maximale Länge einmalig
+                        console.log(`Maximale Länge von ${data_Path} (${dataLength}) im LocalStorage gespeichert.`);
                     } else {
                         console.error(`Variable ${data_Path} nicht gefunden oder kein Array.`);
                     }
