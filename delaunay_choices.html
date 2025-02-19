@@ -89,10 +89,15 @@
             <input type="color" id="colorPickerInput" class="color-input">
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
-        
+<!--         
             <label for="delaunay-slider">Delaunay Count:</label>
             <input type="range" id="delaunay-slider" name="delaunay-slider" min="0" max="100" value="30">
-            <span id="delaunay-value">30</span>
+            <span id="delaunay-value">30</span> -->
+
+            <label for="delaunay-slider">Delaunay Count:</label>
+            <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
+            <span id="delaunay-value"></span>
+
 
 
             <div class="buttons">
@@ -188,22 +193,35 @@
         document.addEventListener("DOMContentLoaded", function () {
             const slider = document.getElementById("delaunay-slider");
             const valueDisplay = document.getElementById("delaunay-value");
-            
-            let storedValue = localStorage.getItem("delaunayCount");
-            if (storedValue !== null) {
-                slider.value = storedValue;
-                valueDisplay.textContent = storedValue;
+
+            let storedLength = localStorage.getItem("delaunayCount");
+            if (storedLength !== null) {
+                const length = parseInt(storedLength, 10);
+                const halfLength = Math.ceil(length / 2);
+
+                slider.max = length;              // Max-Wert auf Länge setzen
+                slider.value = halfLength;        // Standardwert: Hälfte
+                valueDisplay.textContent = halfLength;
+
+                // Slider-Wert speichern
+                saveDelaunayCount(halfLength);
+
+                console.log(`Slider initialisiert: max=${length}, value=${halfLength}`);
             } else {
-                slider.value = 30; // Standardwert
+                slider.max = 100;   // Fallback falls keine Länge vorhanden ist
+                slider.value = 30;  // Standardwert
                 valueDisplay.textContent = 30;
+
+                console.warn("Keine Länge im LocalStorage gefunden, Standardwerte werden verwendet.");
             }
 
-            // Event-Listener für Änderungen am Slider
+            // Event-Listener für Slider-Änderungen
             slider.addEventListener("input", function () {
                 valueDisplay.textContent = slider.value;
                 saveDelaunayCount(slider.value);
             });
         });
+
     
         // Wiederherstellen der letzten Auswahl beim Laden
         window.addEventListener('load', function () {
@@ -261,6 +279,7 @@
         
         // Datei dynamisch laden
         // const dataFile = ../static/js/data/${data_Path}_count.js;
+        
         const dataFile = `static/js/data/${data_Path}_count.js`;
   
         fetch(dataFile, { method: 'HEAD' })
@@ -270,9 +289,18 @@
                 loadScript(dataFile, function () {
                     console.log("Hashtag-Daten geladen:", window[data_Path]);
 
-                        loadScript("static/js/delaunaySketchRandom.js", function () {
-                            console.log("Delaunay-Skript geladen!");
-                        });
+                    if (window[data_Path] && Array.isArray(window[data_Path])) {
+                        const dataLength = window[data_Path].length;
+                        localStorage.setItem('delaunayCount', dataLength); // Länge im LocalStorage speichern
+                        console.log(`Länge von ${data_Path} (${dataLength}) im LocalStorage gespeichert.`);
+                    } else {
+                        console.error(`Variable ${data_Path} nicht gefunden oder kein Array.`);
+                    }
+
+
+                    loadScript("static/js/delaunaySketchRandom.js", function () {
+                        console.log("Delaunay-Skript geladen!");
+                    });
                 });
                
             } else {

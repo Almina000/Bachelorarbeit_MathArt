@@ -24,6 +24,7 @@ let storedData = window[data_Path_delaunay] || [];
 console.log("storedDATA:", storedData);
 
 let x = storedDelaunayCount;
+console.log("storedDelaunayCount:", storedDelaunayCount); //array.length
 topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
     .slice(0, x); // Wähle die Top 10 Hashtags

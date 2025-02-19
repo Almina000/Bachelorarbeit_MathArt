@@ -106,11 +106,44 @@ function setup() {
   
   let colors = [];  // Initialisiere das Array colors
   let data_Name = localStorage.getItem("dataName");
+  let profile_Name = localStorage.getItem("profileName");
 
-  if (data_Name == "colors" || colorDataValue === "true") {
+  if (data_Name == "colors") {
     colors = topData.map(colorObj => colorObj.data);
     console.log(colors);
-  } else {
+  // } else if (colorDataValue === "true"){
+    
+  //   const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
+  //   console.log("Zu überprüfende Datei:", dataFile);
+
+  //   fetch(dataFile, { method: 'HEAD' })
+  //       .then(response => {
+  //           console.log("fetch-Response-Status:", response.status);
+
+  //           if (response.ok) {
+  //               console.log("Datei existiert, speichere in LocalStorage...");
+  //               localStorage.setItem('dataPath', `${profile_Name}_colors`);
+  //               localStorage.setItem('dataName', data_Name);
+  //               console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+
+  //               // TEST: DIREKTE WEITERLEITUNG
+  //               console.log("Weiterleitung zur nächsten Seite...");
+  //               window.location.href = 'choose_algorithm.html';
+
+  //           } else {
+  //               console.error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
+  //           }
+  //       })
+  //       .catch(error => console.error("Fehler beim Laden der Datei:", error));
+  //   topData = data_Name
+  //   .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
+  //   .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
+  //   let totalTopCount = topData.reduce((sum, data) => sum + data.count, 0);
+
+  //   colors = topData.map(colorObj => colorObj.data);
+  //   console.log(colors);
+
+  // } else {
     // colors = [
     //   "#1E90FF",    // Blau
     //   "#FF4500",    // Rot-Orange
