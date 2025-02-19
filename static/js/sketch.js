@@ -111,39 +111,49 @@ function setup() {
   if (data_Name == "colors") {
     colors = topData.map(colorObj => colorObj.data);
     console.log(colors);
-  // } else if (colorDataValue === "true"){
-    
-  //   const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
-  //   console.log("Zu überprüfende Datei:", dataFile);
+  } else if (colorDataValue === "true") {
+      console.log("colorDataValue = true in Schleife", colorDataValue);
 
-  //   fetch(dataFile, { method: 'HEAD' })
-  //       .then(response => {
-  //           console.log("fetch-Response-Status:", response.status);
+      const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
+      console.log("In Schleife geladen", dataFile);
 
-  //           if (response.ok) {
-  //               console.log("Datei existiert, speichere in LocalStorage...");
-  //               localStorage.setItem('dataPath', `${profile_Name}_colors`);
-  //               localStorage.setItem('dataName', data_Name);
-  //               console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+      fetch(dataFile)
+          .then(response => {
+              console.log("Fetch-Response-Status:", response.status);
 
-  //               // TEST: DIREKTE WEITERLEITUNG
-  //               console.log("Weiterleitung zur nächsten Seite...");
-  //               window.location.href = 'choose_algorithm.html';
+              if (response.ok) {
+                  return response.text(); // Text der Datei abrufen
+              } else {
+                  throw new Error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
+              }
+          })
+          .then(scriptContent => {
+              // Ausführen des Skripts im aktuellen Kontext
+              eval(scriptContent);
 
-  //           } else {
-  //               console.error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
-  //           }
-  //       })
-  //       .catch(error => console.error("Fehler beim Laden der Datei:", error));
-  //   topData = data_Name
-  //   .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-  //   .slice(0, totalShapes);  // Schneide die obersten 'num' Elemente ab
-  //   let totalTopCount = topData.reduce((sum, data) => sum + data.count, 0);
+              const windowKey = `window.${profile_Name}_colors`;
+              const colorArray = eval(windowKey); // Zugriff auf die globale Variable im Script
 
-  //   colors = topData.map(colorObj => colorObj.data);
-  //   console.log(colors);
+              if (Array.isArray(colorArray)) {
+                  // Sortieren nach 'count' absteigend und die ersten 30 auswählen
+                  topData = colorArray
+                      .sort((a, b) => b.count - a.count)
+                      .slice(0, 30);
 
-  // } else {
+                  // Farbcodes extrahieren
+                  colors = topData.map(colorObj => colorObj.data);
+                  console.log("Top 30 Farben:", colors);
+
+                  // // In LocalStorage speichern
+                  // localStorage.setItem('dataPath', `${profile_Name}_colors`);
+                  // localStorage.setItem('dataName', data_Name);
+                  // console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+              } else {
+                  console.error(`Ungültige Datenstruktur in ${dataFile}`);
+              }
+          })
+          .catch(error => console.error("Fehler beim Laden der Datei:", error));
+  } else {
     // colors = [
     //   "#1E90FF",    // Blau
     //   "#FF4500",    // Rot-Orange
@@ -189,7 +199,6 @@ function setup() {
       "#FFDAC1", // Pastellpfirsich
       "#ACE5EE", // Pastelltürkisblau
       "#E6CFE3", // Pastellpflaume
-      // Ergänzende Farben
       "#FFB347", // Pastellorange
       "#FDFD96", // Pastellgelb
       "#FF6961", // Pastellrot
