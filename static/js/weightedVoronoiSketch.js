@@ -6,6 +6,10 @@ let topData = [];
 
 let canvas;
 
+loadScript("static/js/libraries/p5.min.js", function () {
+  console.log("p5 geladen");
+});
+
 function setup() {
     console.log("Ich bin in setup()");
     

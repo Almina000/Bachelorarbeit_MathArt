@@ -6,10 +6,22 @@
     <title>Geometrie-Tools</title>
     <link rel="stylesheet" href="static/css/styleStart.css">
     <script>
+        let selectedProfile = '';
+
         function chooseProfile(profile_Name) {
-            localStorage.setItem('profileName', profile_Name);
-            console.log("Gespeicherter Profilname:", localStorage.getItem("profileName")); // Debugging
-            window.location.href = 'choose_data.html';
+            selectedProfile = profile_Name;
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        function goToNext() {
+            if (selectedProfile) {
+                localStorage.setItem('profileName', selectedProfile);
+                window.location.href = 'choose_data.html';
+            } else {
+                alert('Bitte wähle ein Profil aus.');
+            }
         }
     </script>
 </head>
@@ -17,22 +29,28 @@
     <!-- Kreise oben -->
     <div class="circles">
         <div class="circle big">1</div>
-        <div class="circle grey">2</div> <!-- Kleine Kreise sind nicht anklickbar -->
+        <div class="circle grey">2</div>
         <div class="circle grey">3</div>
-        <div class="circle grey">4</div>
-        <div class="circle grey">5</div>
     </div>
-    
+
     <h1>Wähle das Instagram-Profil</h1>
-    
+
     <!-- Buttons -->
     <div class="buttons">
-        <button class="button" onclick="chooseProfile('google')">google</button>
-        <button class="button" onclick="chooseProfile('tagesschau')">tagesschau</button>
-        <button class="button" onclick="chooseProfile('soko_tierschutz')">soko_tierschutz</button>
-        <button class="button" onclick="chooseProfile('elbenwald')">elbenwald</button>
-        <button class="button" onclick="chooseProfile('kulturcafezett9')">kulturcafezett9</button>
-        <button class="button" onclick="chooseProfile('die_commanderschmiede')">die_commanderschmiede</button>
+        <div class="row">
+            <button class="button" onclick="chooseProfile('google')">google</button>
+            <button class="button" onclick="chooseProfile('tagesschau')">tagesschau</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="chooseProfile('soko_tierschutz')">soko_tierschutz</button>
+            <button class="button" onclick="chooseProfile('elbenwald')">elbenwald</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="chooseProfile('kulturcafezett9')">kulturcafezett9</button>
+            <button class="button" onclick="chooseProfile('die_commanderschmiede')">die_commanderschmiede</button>
+        </div>
     </div>
+
+    <button class="weiter-button" onclick="goToNext()">Weiter</button>
 </body>
 </html>

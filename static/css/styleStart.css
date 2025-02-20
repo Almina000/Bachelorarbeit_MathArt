@@ -9,7 +9,6 @@
   src: url('../fonts/AbadiMT-Light.ttf') format('truetype');
 }
 
-
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +23,7 @@ body, html {
   justify-content: flex-start;
   align-items: center;
   background-color: #f4f4f9;
-  position: relative; /* Notwendig für absolute Positionierung der Kreise */
+  position: relative;
 }
 
 /* Kreise oben am Rand */
@@ -37,11 +36,8 @@ body, html {
   display: flex;
   gap: 80px;
   padding: 10px;
-  align-items: center; /* Zentriert die Kreise vertikal */
+  align-items: center;
 }
-
-/* Stil für die Kreise */
-
 
 .circle {
   display: flex;
@@ -50,7 +46,7 @@ body, html {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #c397df; /* Pastell-Lila */
+  background-color: #c397df;
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
@@ -59,8 +55,9 @@ body, html {
 }
 
 .circle:hover {
-  background-color: #a8c8ff; 
+  background-color: #a8c8ff;
 }
+
 .circle.grey {
   display: flex;
   justify-content: center;
@@ -68,7 +65,7 @@ body, html {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #cbc6ce; /* Pastell-Lila */
+  background-color: #cbc6ce;
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
@@ -76,115 +73,75 @@ body, html {
   transition: background-color 0.3s ease;
 }
 
-/* Größerer Button für Kreis 1 */
 .circle.big {
   width: 60px;
   height: 60px;
-  background-color: #9b4dca; /* Kräftiges Lila */
+  background-color: #9b4dca;
 }
 
-/* Stil für die "Geometrie-Tools" Überschrift */
 h1 {
   font-family: 'AbadiMT-Light', sans-serif;
   font-size: 3rem;
   color: #333;
-  margin-top: 140px; /* Abstand nach oben, um die Kreise nicht zu überlappen */
+  margin-top: 140px;
   margin-bottom: 30px;
   text-align: center;
 }
 
-/* Buttons unter der Überschrift */
+/* Buttons */
 .buttons {
   font-family: 'AbadiMT-Light', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   margin-top: 40px;
 }
 
-a.button {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  color: white;
-  background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8); /* Farbverlauf */
-  background-size: 400% 400%;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: background-position 0.8s ease, transform 0.3s ease;
-  margin: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  border: none;
-}
-
-button {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  color: white;
-  background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8); /* Farbverlauf */
-  background-size: 400% 400%;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: background-position 0.8s ease, transform 0.3s ease;
-  margin: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  border: none;
-}
-
-button:hover {
-  background-position: 100% 100%;
-  transform: scale(1.1);
-}
-
-a.button:hover {
-  background-position: 100% 100%;
-  transform: scale(1.1);
-}
-
-/* Eingabefeld mit Button daneben */
-.input-with-button {
+.row {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+  flex-direction: row;
+  gap: 20px;
 }
 
-.input-with-button input {
-  padding: 10px 15px;
-  font-size: 1rem;
-  border: 2px solid #cbc6ce;
-  border-radius: 20px;
-  outline: none;
-  transition: border-color 0.3s;
-  width: 250px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border: none;
-}
-
-.input-with-button input:focus {
-  border-color: #9b4dca;
-  border: none;
-}
-
-.input-with-button button {
+button.button {
+  background: white;
+  color: black;
+  border: 2px solid black;
   padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #9b4dca;
-  border: none;
-  border-radius: 20px;
+  font-size: 16px;
   cursor: pointer;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
-  border: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
 }
 
-.input-with-button button:hover {
-  background-color: #732e99;
-  transform: scale(1.05);
-  border: none;
+button.button:hover {
+  background: black;
+  color: white;
 }
 
+button.button.selected {
+  border: 3px solid #933cc8;
+  font-weight: bold;
+}
+
+button.weiter-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8);
+  background-size: 400% 400%;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: background-position 0.8s ease, transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+button.weiter-button:hover {
+  background-position: 100% 100%;
+  transform: scale(1.1);
+}

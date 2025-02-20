@@ -4,23 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geometrie-Tools</title>
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="static/css/styleDelaunay.css">
-    
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
     
 </head>
 <body>
 
-    <!-- Kreise oben -->
-  
     <div class="main-container">
         <div class="menu">
-            <h1>Konfikgurationen</h1>
+            <h1>Konfigurationen</h1>
 
-            <!-- Farbpaletten Auswahl -->
             <div class="color-palette-container">
-                <!-- Standardfarbpaletten -->
                 <div class="color-palette-row">
                     <div class="color-palette" id="palette1" onclick="selectPalette(this)">
                         <div class="color-swatch" style="background-color: #003B46;"></div>
@@ -91,10 +85,7 @@
             <input type="color" id="colorPickerInput" class="color-input">
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
-<!--         
-            <label for="delaunay-slider">Delaunay Count:</label>
-            <input type="range" id="delaunay-slider" name="delaunay-slider" min="0" max="100" value="30">
-            <span id="delaunay-value">30</span> -->
+
 
             <label for="delaunay-slider">Delaunay Count:</label>
             <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
@@ -117,8 +108,8 @@
         
     </div>
     
-    <!-- Scripts -->
     <script>
+        
         function selectPalette(element, isCustom = false) {
             document.querySelectorAll('.color-palette').forEach(p => p.classList.remove('selected'));
             element.classList.add('selected');
@@ -193,6 +184,7 @@
 
         // Initialisierung des Sliders basierend auf localStorage oder Standardwert
         document.addEventListener("DOMContentLoaded", function () {
+
             const slider = document.getElementById("delaunay-slider");
             const valueDisplay = document.getElementById("delaunay-value");
 
@@ -213,6 +205,7 @@
     
         // Wiederherstellen der letzten Auswahl beim Laden
         window.addEventListener('load', function () {
+
             const activePalette = localStorage.getItem('activePalette');
             const savedPalette = JSON.parse(localStorage.getItem('selectedColorPalette'));
             const savedCustomPalette = JSON.parse(localStorage.getItem('customColorPalette'));
@@ -274,6 +267,7 @@
         .then(response => {
             if (response.ok) {
                 console.log(`Daten-Datei gefunden: ${dataFile}`);
+                
                 loadScript(dataFile, function () {
                     console.log("Hashtag-Daten geladen:", window[data_Path]);
 
@@ -297,8 +291,6 @@
         })
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
-    <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
-    <script src="static/js/libraries/p5.min.js"></script>
-    <!-- <script src="static/js/delaunaySketchRandom.js"></script> -->
+
 </body>
 </html>

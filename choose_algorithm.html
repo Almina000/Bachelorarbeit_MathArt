@@ -5,29 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geometrie-Tools</title>
     <link rel="stylesheet" href="static/css/styleStart.css">
+    <script>
+        let selectedAlgorithm = '';
+
+        function chooseAlgorithm(page) {
+            selectedAlgorithm = page;
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        function goToNext() {
+            if (selectedAlgorithm) {
+                window.location.href = selectedAlgorithm;
+            } else {
+                alert('Bitte wähle einen Algorithmus aus.');
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="circles">
         <a href="choose_profile.html" class="circle">1</a>
         <a href="choose_data.html" class="circle">2</a>
         <div class="circle big">3</div>
-        <div class="circle grey">4</div>
-        <div class="circle grey">5</div>
     </div>
     
     <h1>Wähle den Algorithmus</h1>
     
     <div class="buttons">
-        <button onclick="redirectTo('delaunay_choices.html')">Delaunay-Dreiecke</button>
-        <button onclick="redirectTo('voronoi.html')">Voronoi-Diagramme</button>
-        <button onclick="redirectTo('weighted_voronoi.html')">Relaxationsalgorithmus</button>
-        <button onclick="redirectTo('artwork.html')">Dekonstruiertes Kreisdiagramm mit Fibonacci</button>
+        <div class="row">
+            <button class="button" onclick="chooseAlgorithm('delaunay_choices.html')">Delaunay-Dreiecke</button>
+            <button class="button" onclick="chooseAlgorithm('voronoi.html')">Voronoi-Diagramme</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="chooseAlgorithm('weighted_voronoi.html')">Relaxationsalgorithmus</button>
+            <button class="button" onclick="chooseAlgorithm('artwork.html')">Dekonstruiertes Kreisdiagramm mit Fibonacci</button>
+        </div>
     </div>
-    
-    <script>
-        function redirectTo(page) {
-            window.location.href = page;
-        }
-    </script>
+
+    <button class="weiter-button" onclick="goToNext()">Weiter</button>
 </body>
 </html>
+
+

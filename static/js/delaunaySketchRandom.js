@@ -1,6 +1,10 @@
 let seedPoints = [];
 let delaunay;
 
+loadScript("static/js/libraries/p5.min.js", function () {
+    console.log("p5 geladen");
+});
+
 const storedDelaunayCount = localStorage.getItem('delaunayCount');
 const storedPalette = localStorage.getItem('selectedColorPalette');
 let colorPalette = [];

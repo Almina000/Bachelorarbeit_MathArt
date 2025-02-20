@@ -92,17 +92,15 @@
             <input type="color" id="colorPickerInput" class="color-input">
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
+
+            
+            <label for="delaunay-slider">Delaunay Count:</label>
+            <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
+            <span id="delaunay-value"></span>
         
             <div class="buttons">
-                <!-- <p class="mode-label">Wie sollen die Datenpunkte im Raum verteilt werden?</p>
-                <div class="mode-buttons">
-                    <button class="button mode-button" onclick="setMode('random')">Random</button>
-                    <button class="button mode-button" onclick="setMode('byFrequency')">Nach Häufigkeit</button>
-                </div> -->
                 <button class="button" onclick="safeChanges()">Anwenden</button>
             </div>
-            
-            
         </div>
         <div id="sketch-holder"></div>
         
@@ -255,7 +253,7 @@
         .catch(error => console.error("Fehler beim Laden der Datei:", error));
     </script>
     <!-- <script src="static/js/data/elbenwald_hashtags_count.js"></script> -->
-    <script src="static/js/libraries/p5.min.js"></script>
+    <!-- <script src="static/js/libraries/p5.min.js"></script> -->
     <script src="https://d3js.org/d3-delaunay.v6.min.js"></script>
     <!-- <script src="static/js/weightedVoronoiSketch.js"></script> -->
 </body>

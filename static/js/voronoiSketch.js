@@ -1,6 +1,11 @@
 let seedPoints = [];
 let delaunay;
 
+loadScript("static/js/libraries/p5.min.js", function () {
+  console.log("p5 geladen");
+});
+
+const storedDelaunayCount = localStorage.getItem('delaunayCount');
 const storedPalette = localStorage.getItem('selectedColorPalette');
 let colorPalette = [];
 if (storedPalette) {
@@ -13,6 +18,8 @@ if (storedPalette) {
     colorPalette = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'];
 }
 
+let x = storedDelaunayCount;
+console.log("storedDelaunayCount:", storedDelaunayCount);
 
 let topData = [];
 
@@ -24,11 +31,7 @@ console.log("storedDATA:", storedData);
 
 topData = storedData
     .sort((a, b) => b.count - a.count)  // Sortiere nach count in absteigender Reihenfolge
-// let maxCount = topData.reduce((sum, data) => sum + hashtag.count, 0);
-// let maxCount = Math.max(...topData.map(h => h.count));
-// let minCount = Math.min(...topData.map(h => h.count));
-
-// console.log("maxCount:", maxCount, "minCount:", minCount);
+    .slice(0, x);
 
 console.log("topData.length:", topData.length);
 console.log("topData:", topData);
