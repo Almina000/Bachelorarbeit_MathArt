@@ -111,48 +111,48 @@ function setup() {
   if (data_Name == "colors") {
     colors = topData.map(colorObj => colorObj.data);
     console.log(colors);
-  } else if (colorDataValue === "true") {
-      console.log("colorDataValue = true in Schleife", colorDataValue);
+  // } else if (colorDataValue === "true") {
+  //     console.log("colorDataValue = true in Schleife", colorDataValue);
 
-      const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
-      console.log("In Schleife geladen", dataFile);
+  //     const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
+  //     console.log("In Schleife geladen", dataFile);
 
-      fetch(dataFile)
-          .then(response => {
-              console.log("Fetch-Response-Status:", response.status);
+  //     fetch(dataFile)
+  //         .then(response => {
+  //             console.log("Fetch-Response-Status:", response.status);
 
-              if (response.ok) {
-                  return response.text(); // Text der Datei abrufen
-              } else {
-                  throw new Error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
-              }
-          })
-          .then(scriptContent => {
-              // Ausführen des Skripts im aktuellen Kontext
-              eval(scriptContent);
+  //             if (response.ok) {
+  //                 return response.text(); // Text der Datei abrufen
+  //             } else {
+  //                 throw new Error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
+  //             }
+  //         })
+  //         .then(scriptContent => {
+  //             // Ausführen des Skripts im aktuellen Kontext
+  //             eval(scriptContent);
 
-              const windowKey = `window.${profile_Name}_colors`;
-              const colorArray = eval(windowKey); // Zugriff auf die globale Variable im Script
+  //             const windowKey = `window.${profile_Name}_colors`;
+  //             const colorArray = eval(windowKey); // Zugriff auf die globale Variable im Script
 
-              if (Array.isArray(colorArray)) {
-                  // Sortieren nach 'count' absteigend und die ersten 30 auswählen
-                  topData = colorArray
-                      .sort((a, b) => b.count - a.count)
-                      .slice(0, 30);
+  //             if (Array.isArray(colorArray)) {
+  //                 // Sortieren nach 'count' absteigend und die ersten 30 auswählen
+  //                 topData = colorArray
+  //                     .sort((a, b) => b.count - a.count)
+  //                     .slice(0, 30);
 
-                  // Farbcodes extrahieren
-                  colors = topData.map(colorObj => colorObj.data);
-                  console.log("Top 30 Farben:", colors);
+  //                 // Farbcodes extrahieren
+  //                 colors = topData.map(colorObj => colorObj.data);
+  //                 console.log("Top 30 Farben:", colors);
 
-                  // // In LocalStorage speichern
-                  // localStorage.setItem('dataPath', `${profile_Name}_colors`);
-                  // localStorage.setItem('dataName', data_Name);
-                  // console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
-              } else {
-                  console.error(`Ungültige Datenstruktur in ${dataFile}`);
-              }
-          })
-          .catch(error => console.error("Fehler beim Laden der Datei:", error));
+  //                 // // In LocalStorage speichern
+  //                 // localStorage.setItem('dataPath', `${profile_Name}_colors`);
+  //                 // localStorage.setItem('dataName', data_Name);
+  //                 // console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+  //             } else {
+  //                 console.error(`Ungültige Datenstruktur in ${dataFile}`);
+  //             }
+  //         })
+  //         .catch(error => console.error("Fehler beim Laden der Datei:", error));
   } else {
     // colors = [
     //   "#1E90FF",    // Blau
@@ -249,7 +249,7 @@ function setup() {
     
   }
   
-  // Zeichne die Legende unter dem Rechteck
+
   let legendX1 = rectX; // Linker Block
   let legendX2 = rectX + rectWidth / 2 + 20; // Rechter Block
   let legendY = rectY + rectHeight + 50; // Höhe unter dem Rechteck
@@ -261,9 +261,9 @@ function setup() {
   let leftCount = Math.ceil(totalShapes / 2); // Anzahl der Hashtags links
   let rightCount = Math.floor(totalShapes / 2); // Anzahl der Hashtags rechts
   
-  // Zeichne die ersten 5 Hashtags im linken Block
+
   for (let index = 0; index < Math.min(leftCount, topData.length); index++) {
-    fill(colors[index]);
+    fill((colors[index]));
     stroke(0);
     strokeWeight(1);
     ellipse(legendX1 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
@@ -278,7 +278,7 @@ function setup() {
   // Rechter Block
   for (let index = 0; index < Math.min(rightCount, topData.length - leftCount); index++) {
     let hashtagIndex = leftCount + index; // Index im gesamten Array
-    fill(colors[hashtagIndex]);
+    fill((colors[hashtagIndex]));
     stroke(0);
     strokeWeight(1);
     ellipse(legendX2 + 10, legendY + index * 30 + 10, 20, 20); // Kreise statt Rechtecke
