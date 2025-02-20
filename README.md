@@ -87,7 +87,10 @@ python scraperRun.py google short
 - Die gescrapten Daten werden in folgenden Dateien gespeichert:
   - `<profilename>_date_data.csv` (Post-Daten)
   - `<profilename>_hashtag_data.csv` (Hashtags)
-
+- Die transformierten Daten werden für die Visualisierung im JavaScript-Format gespeichert:
+  - `<profilename>_months_count.js` (Monatliche Posts)
+  - `<profilename>_weeks_count.js` (Wöchentliche Posts)
+  - `<profilename>_hashtags_count.js` (Hashtag-Häufigkeiten)
 ---
 
 ## ❗ **Fehlerbehebung**
