@@ -64,7 +64,7 @@ JS_SAVE_PATH=C:/Pfad/zum/js
 ---
 
 
-### 🚀 **Ausführung des Skripts**
+## 🚀 **Ausführung des Skripts**
 Navigiere mit cd in das Verzeichnis, in dem sich die Datei befindet, und führe folgenden Befehl aus:
 ```bash
 python scraperRun.py <profilename> <testMode>
