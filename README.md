@@ -1,3 +1,8 @@
+# Web-Anwendung
+
+## 💻 **Zugriff auf die Webanwendung** 
+Die Webanwendung ist über den folgenden Link erreichbar: [Hier klicken, um die Anwendung zu starten](https://almina000.github.io/Bachelorarbeit_App/).
+
 # Instagram Scraper Bot
 
 ## 📋 **Beschreibung**
