@@ -144,8 +144,16 @@
     <script>
         //##############################################################
         //Pop up
+        const stored_data_Name = localStorage.getItem("dataName");
+        let options = [];
 
-        const options = ["Knallig Bunt", "Zarte Pastelltöne", "Beeren-Farben", "Frische Natur", "Ozeanische Ruhe", "Eiscreme-Sommer", "Düsterer Herbst"];
+        if (stored_data_Name === "colors") {
+            options = ["Profil-Farben", "Knallig Bunt", "Zarte Pastelltöne", "Beeren-Farben", "Frische Natur", "Ozeanische Ruhe", "Eiscreme-Sommer", "Düsterer Herbst"];
+        } else {
+            options = ["Knallig Bunt", "Zarte Pastelltöne", "Beeren-Farben", "Frische Natur", "Ozeanische Ruhe", "Eiscreme-Sommer", "Düsterer Herbst"];
+        }
+
+        
 
         function openPopup() {
             const popupOverlay = document.getElementById('popupOverlay');
