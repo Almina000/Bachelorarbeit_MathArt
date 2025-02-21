@@ -1,4 +1,5 @@
-const kulturcafezett9_hashtagData = [
+if (typeof window !== 'undefined') {
+  window.kulturcafezett9_hashtags = [
   {
     "data": "#zett9",
     "count": 19
@@ -588,3 +589,7 @@ const kulturcafezett9_hashtagData = [
     "count": 1
   }
 ];
+console.log("data-Daten erfolgreich geladen:", window.kulturcafezett9_hashtags);
+}else {
+console.error("Daten aus count.js nicht geladen");
+}

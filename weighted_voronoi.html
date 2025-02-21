@@ -87,14 +87,25 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <div id="additional-colors-wrapper">
+                    <div class="color-item">
+                        <label for="colorBorderPicker">Rand:</label>
+                        <div class="color-picker single" id="colorBorderPicker" style="background-color: #000000;" onclick="openColorPicker(event, this)"></div>
+                    </div>
+                    <div class="color-item">
+                        <label for="colorPointsPicker">Punkte:</label>
+                        <div class="color-picker single" id="colorPointsPicker" style="background-color: #FFFFFF;" onclick="openColorPicker(event, this)"></div>
+                    </div>
+                </div>
+            
             </div>
             <input type="color" id="colorPickerInput" class="color-input">
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
 
             
-            <label for="delaunay-slider">Delaunay Count:</label>
+            <label for="delaunay-slider">Anzahl der Datenpunkte:</label>
             <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
             <span id="delaunay-value"></span>
         
@@ -110,6 +121,7 @@
     
     <!-- Scripts -->
     <script>
+
         function selectPalette(element, isCustom = false) {
             document.querySelectorAll('.color-palette').forEach(p => p.classList.remove('selected'));
             element.classList.add('selected');
@@ -135,19 +147,6 @@
             window.location.reload();
 
         }
-        // function setMode(mode) {
-        //     localStorage.setItem('delaunayMode', mode);
-
-        //     // Entferne vorherige Auswahl nur von .mode-button
-        //     document.querySelectorAll('.mode-button').forEach(btn => btn.classList.remove('selected'));
-
-        //     // Markiere den geklickten Button
-        //     document.querySelector(`button[onclick="setMode('${mode}')"]`).classList.add('selected');
-        // }
-    
-        let activePicker = null;
-        const colorInput = document.getElementById("colorPickerInput");
-    
         function openColorPicker(event, element) {
             event.stopPropagation();
             activePicker = element;
@@ -155,12 +154,27 @@
             colorInput.click();
         }
     
+        let activeElement = null; // Das Element, das aktuell die Farbe ändert
+        const colorInput = document.getElementById("colorPickerInput");
+    
         colorInput.addEventListener("change", function () {
             if (activePicker) {
                 activePicker.style.backgroundColor = colorInput.value;
-                selectPalette(document.getElementById('custom-palette'), true);
+
+                // Speichern der Farben im Local Storage
+                if (activePicker.parentElement.id === 'custom-palette') {
+                    selectPalette(document.getElementById('custom-palette'), true);
+                } else if (activePicker.id === 'colorBorderPicker') {
+                    localStorage.setItem('colorBorder', colorInput.value);
+                } else if (activePicker.id === 'colorPointsPicker') {
+                    localStorage.setItem('colorPoints', colorInput.value);
+                }
+
+                activePicker = null; // Zurücksetzen
             }
         });
+
+
     
         function updateCustomPalette() {
             const customColors = Array.from(document.querySelectorAll('#custom-palette .color-picker'))
@@ -176,17 +190,44 @@
             if (!match) return "#FFFFFF";
             return `#${((1 << 24) | (parseInt(match[0]) << 16) | (parseInt(match[1]) << 8) | parseInt(match[2])).toString(16).slice(1).toUpperCase()}`;
         }
+
+        function saveDelaunayCount(value) {
+            localStorage.setItem("delaunayCount", value);
+        }
+
+        // Initialisierung des Sliders basierend auf localStorage oder Standardwert
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const slider = document.getElementById("delaunay-slider");
+            const valueDisplay = document.getElementById("delaunay-value");
+
+            const maxCount = parseInt(localStorage.getItem("delaunayMaxCount"), 10) || 100;
+            const storedValue = parseInt(localStorage.getItem("delaunayCount"), 10) || Math.ceil(maxCount / 2);
+
+            slider.max = maxCount;              // Max-Wert festlegen
+            slider.value = storedValue;         // Aktueller Wert aus LocalStorage
+            valueDisplay.textContent = storedValue;
+
+            slider.addEventListener("input", function () {
+                valueDisplay.textContent = slider.value;
+                localStorage.setItem("delaunayCount", slider.value); // Speichere aktuellen Wert
+            });
+        });
+
     
         // Wiederherstellen der letzten Auswahl beim Laden
         window.addEventListener('load', function () {
+            const storedDelaunayCount = localStorage.getItem('delaunayCount') || Math.ceil(maxCount / 2);
             const activePalette = localStorage.getItem('activePalette');
             const savedPalette = JSON.parse(localStorage.getItem('selectedColorPalette'));
             const savedCustomPalette = JSON.parse(localStorage.getItem('customColorPalette'));
-            // const savedMode = localStorage.getItem('delaunayMode');
+            const borderColor = localStorage.getItem('colorBorder') || '#000000';
+            const pointsColor = localStorage.getItem('colorPoints') || '#FFFFFF';
+
+            document.getElementById('colorBorderPicker').style.backgroundColor = borderColor;
+            document.getElementById('colorPointsPicker').style.backgroundColor = pointsColor;
    
-            // if (savedMode) {
-            //     setMode(savedMode);
-            // }
+   
     
             if (savedCustomPalette) {
                 // Stellt sicher, dass die benutzerdefinierte Palette NIE verloren geht
@@ -240,6 +281,14 @@
                 console.log(`Daten-Datei gefunden: ${dataFile}`);
                 loadScript(dataFile, function () {
                     console.log("Hashtag-Daten geladen:", window[data_Path]);
+
+                    if (window[data_Path] && Array.isArray(window[data_Path])) {
+                        const dataLength = window[data_Path].length;
+                        localStorage.setItem('delaunayMaxCount', dataLength); // Speichere maximale Länge einmalig
+                        console.log(`Maximale Länge von ${data_Path} (${dataLength}) im LocalStorage gespeichert.`);
+                    } else {
+                        console.error(`Variable ${data_Path} nicht gefunden oder kein Array.`);
+                    }
 
                     // Warte, bis die Hashtag-Daten sicher verfügbar sind, dann lade das Haupt-Skript
                     loadScript("static/js/weightedVoronoiSketch.js", function () {

@@ -1,5 +1,5 @@
-const google_monthlyCounts = {
-    "monthly_counts": [
+if (typeof window !== 'undefined') {
+    window.google_months = [
         {
             "data": "February",
             "count": 11
@@ -28,5 +28,8 @@ const google_monthlyCounts = {
             "data": "August",
             "count": 39
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.google_months);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

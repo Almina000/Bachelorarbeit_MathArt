@@ -48,7 +48,7 @@ body, html {
   color: white;
   text-decoration: none;
   border-radius: 30px;
-  background: linear-gradient(45deg, #d6a3f3, #a8c8ff, #f1a8b8); /* Pastell-Farbverlauf */
+  background: #9b4dca;
   background-size: 400% 400%; /* Größe des Farbverlaufs */
   transition: background-position 0.8s ease, transform 0.3s ease;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Leichter Schatten */
@@ -56,6 +56,5 @@ body, html {
 
 /* Hover-Effekt für den Start-Button */
 .start-button:hover {
-  background-position: 100% 100%; /* Beweglicher Farbverlauf */
   transform: scale(1.1); /* Vergrößerungseffekt */
 }

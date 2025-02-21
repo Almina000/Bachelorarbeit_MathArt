@@ -1,4 +1,5 @@
-const vegan_check_hashtagData = [
+if (typeof window !== 'undefined') {
+  window.vegan_check_hashtags = [
   {
     "data": "#vegancheck",
     "count": 183
@@ -1056,3 +1057,7 @@ const vegan_check_hashtagData = [
     "count": 1
   }
 ];
+console.log("data-Daten erfolgreich geladen:", window.vegan_check_hashtags);
+}else {
+console.error("Daten aus count.js nicht geladen");
+}

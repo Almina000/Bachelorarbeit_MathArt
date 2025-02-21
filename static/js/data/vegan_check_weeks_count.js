@@ -1,5 +1,5 @@
-const vegan_check_weeklyCounts = {
-    "weekly_counts": [
+if (typeof window !== 'undefined') {
+    window.vegan_check_weeks = [
         {
             "data": "W4",
             "count": 50
@@ -24,5 +24,8 @@ const vegan_check_weeklyCounts = {
             "data": "W6",
             "count": 2
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.vegan_check_weeks);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

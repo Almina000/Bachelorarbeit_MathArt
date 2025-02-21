@@ -1,4 +1,5 @@
-const die_commanderschmiede_hashtagData = [
+if (typeof window !== 'undefined') {
+  window.die_commanderschmiede_hashtags = [
   {
     "data": "#mtg",
     "count": 206
@@ -740,3 +741,7 @@ const die_commanderschmiede_hashtagData = [
     "count": 1
   }
 ];
+console.log("data-Daten erfolgreich geladen:", window.die_commanderschmiede_hashtags);
+}else {
+console.error("Daten aus count.js nicht geladen");
+}

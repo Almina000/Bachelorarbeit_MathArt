@@ -1,4 +1,5 @@
-const google_hashtagData = [
+if (typeof window !== 'undefined') {
+  window.google_hashtags = [
   {
     "data": "#GoogleIO",
     "count": 1
@@ -308,3 +309,7 @@ const google_hashtagData = [
     "count": 1
   }
 ];
+console.log("data-Daten erfolgreich geladen:", window.google_hashtags);
+}else {
+console.error("Daten aus count.js nicht geladen");
+}

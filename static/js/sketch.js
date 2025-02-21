@@ -1,6 +1,12 @@
 // sketch.js
 //_______________________________________________________________________________
 //VARIABLEN HOLEN
+
+loadScript("static/js/libraries/p5.min.js", function () {
+  console.log("p5 geladen");
+
+});
+
 const shapeCounts = JSON.parse(localStorage.getItem("shapeCounts")) || { triangles: 5, circles: 5, rectangles: 5 };
 if (!shapeCounts) {
   window.location.href = "index.html";
@@ -9,6 +15,9 @@ const { triangles, circles, rectangles } = shapeCounts;
 console.log(`Dreiecke: ${triangles}, Kreise: ${circles}, Rechtecke: ${rectangles}`);
 
 const filterValue = localStorage.getItem('filter');
+const storedSelectedOption = localStorage.getItem('selectedOption');
+console.log("storedSelectedOption:", storedSelectedOption);
+
 
 if (filterValue === 'true') {
   console.log('Filter ist aktiviert.');
@@ -108,148 +117,75 @@ function setup() {
   let data_Name = localStorage.getItem("dataName");
   let profile_Name = localStorage.getItem("profileName");
 
-  if (data_Name == "colors") {
-    colors = topData.map(colorObj => colorObj.data);
-    console.log(colors);
-  // } else if (colorDataValue === "true") {
-  //     console.log("colorDataValue = true in Schleife", colorDataValue);
-
-  //     const dataFile = `static/js/data/${profile_Name}_colors_count.js`;
-  //     console.log("In Schleife geladen", dataFile);
-
-  //     fetch(dataFile)
-  //         .then(response => {
-  //             console.log("Fetch-Response-Status:", response.status);
-
-  //             if (response.ok) {
-  //                 return response.text(); // Text der Datei abrufen
-  //             } else {
-  //                 throw new Error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
-  //             }
-  //         })
-  //         .then(scriptContent => {
-  //             // Ausführen des Skripts im aktuellen Kontext
-  //             eval(scriptContent);
-
-  //             const windowKey = `window.${profile_Name}_colors`;
-  //             const colorArray = eval(windowKey); // Zugriff auf die globale Variable im Script
-
-  //             if (Array.isArray(colorArray)) {
-  //                 // Sortieren nach 'count' absteigend und die ersten 30 auswählen
-  //                 topData = colorArray
-  //                     .sort((a, b) => b.count - a.count)
-  //                     .slice(0, 30);
-
-  //                 // Farbcodes extrahieren
-  //                 colors = topData.map(colorObj => colorObj.data);
-  //                 console.log("Top 30 Farben:", colors);
-
-  //                 // // In LocalStorage speichern
-  //                 // localStorage.setItem('dataPath', `${profile_Name}_colors`);
-  //                 // localStorage.setItem('dataName', data_Name);
-  //                 // console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
-  //             } else {
-  //                 console.error(`Ungültige Datenstruktur in ${dataFile}`);
-  //             }
-  //         })
-  //         .catch(error => console.error("Fehler beim Laden der Datei:", error));
-  } else {
-    // colors = [
-    //   "#1E90FF",    // Blau
-    //   "#FF4500",    // Rot-Orange
-    //   "#FFD700",    // Gelb
-    //   "#32CD32",    // Grün
-    //   "#8A2BE2",    // Lila
-    //   "#40E0D0",    // Türkis
-    //   "#FF6347",    // Tomatenrot
-    //   "#FF1493",    // Dunkles Pink
-    //   "#4682B4",    // Stahlblau
-    //   "#9370DB",    // Violett
-    //   "#DC143C",    // Karmesinrot
-    //   "#00FA9A",    // Mittelgrün
-    //   "#8B0000",    // Dunkelrot
-    //   "#00CED1",    // Türkisblau
-    //   "#FF8C00",    // Dunkelorange
-    //   "#228B22",    // Waldgrün
-    //   "#FFDAB9",    // Pfirsich
-    //   "#6A5ACD",    // Schieferblau
-    //   "#B22222",    // Feuerrot
-    //   "#7FFF00",    // Chartreuse
-    //   "#DDA0DD",    // Pflaume
-    //   "#FF7F50",    // Koralle
-    //   "#6495ED",    // Kornblumenblau
-    //   "#B8860B",    // Dunkelgoldbraun
-    //   "#3CB371",    // Mittleres Grün
-    //   "#C71585",    // Mittelpurpur
-    //   "#40E0D0",    // Türkis
-    //   "#E9967A",    // Lachsfarben
-    //   "#8B008B",    // Dunkelmagenta
-    //   "#00BFFF",    // Tiefes Himmelblau
-    //   "#FA8072",    // Lachrot
-    //   "#FF00FF"     // Magenta
-      
-    // ];
+  if (storedSelectedOption === 'Knallig Bunt'){
+    //Knallig Bunt
     colors = [
-      "#D6EAF8", // Pastell-Babyblau
-      "#B3E2E5", // Pastelltürkis
-      "#CBAACB", // Pastelllila
-      "#FFB7C5", // Pastellpink
-      "#779ECB", // Pastellstahlblau
-      "#D4A4E3", // Pastellviolett
-      "#FFDAC1", // Pastellpfirsich
-      "#ACE5EE", // Pastelltürkisblau
-      "#E6CFE3", // Pastellpflaume
-      "#FFB347", // Pastellorange
-      "#FDFD96", // Pastellgelb
-      "#FF6961", // Pastellrot
-      "#E66666", // Pastellkarmesinrot
-      "#77DD77", // Pastellgrün
-      "#B5EAD7", // Pastellmittelgrün
-      "#C26E60", // Pastelldunkelrot
-      "#D8F5A2", // Pastellchartreuse
-      "#FFA07A", // Pastellkoralle
-      "#B0DFFB", // Pastellkornblumenblau
-      "#E8D2A3", // Pastelldunkelgoldbraun
-      "#95D3A2", // Pastellmittleres Grün
-      "#E2A7C9", // Pastellmittelpurpur
-      "#A4DFE7", // Pastelltürkis
-      "#FFC8B2", // Pastellsalmonfarben
-      "#C38EC7", // Pastelldunkelmagenta
-      "#89CFF0", // Pastelltiefes Himmelblau
-      "#FADADD", // Pastelllachrot
-      "#F2C8E6"  // Pastellmagenta
-    ];
-    
-    // colors = [
-    //   "#F5A6C8", // Sanftes, leuchtendes Pink
-    //   "#A0D1D7", // Mildes Türkis
-    //   "#F4C6D7", // Pastelliges Pink mit Pfirsichhauch
-    //   "#7BCFD3", // Kräftiges, sanftes Türkis
-    //   "#F4A8D8", // Intensiverer Pinkton
-    //   "#6CC8D3", // Frisches, leuchtendes Türkis
-    //   "#F7B1C6", // Warmer, weicher Pinkton
-    //   "#90D4D8", // Ruhiges, blasses Türkis
-    //   "#F7B7D7", // Zartes, fast Pfirsichfarbenes Pink
-    //   "#63B8B2", // Tiefes, beruhigendes Türkis
-    // ];
-    // colors = [
-    //   "#FFFFFF", // Reines Weiß
-    //   "#D3D3D3", // Helles Grau
-    //   "#A9A9A9", // Dunkelgrau
-    //   "#FFD700", // Klassisches Gold
-    //   "#F5F5F5", // Sanftes, warmes Weiß
-    //   "#BEBEBE", // Mittleres Grau
-    //   "#FFCC00", // Heller Goldton
-    //   "#FAFAFA", // Fast Weiß mit Grauton
-    //   "#808080", // Neutralgrau
-    //   "#C0B200", // Gedämpfter Goldton
-    // ];
-    
-    
-    
+      "#FF5733", "#FFC300", "#FFFC33", "#33FF57", "#33FFD7", "#33A7FF",
+      "#3357FF", "#8633FF", "#D133FF", "#FF33C7", "#FF338C", "#FF3333",
+      "#FF9C33", "#F3FF33", "#7FFF33", "#33FFA7", "#33FFF3", "#33A7FF",
+      "#3333FF", "#8633FF", "#C733FF", "#FF33A7", "#FF3357", "#FF6B33",
+      "#FFD733", "#FFFF33", "#7AFF33", "#33FF6B", "#33FFFF", "#33B7FF"
+    ]
+  } else if (storedSelectedOption === 'Zarte Pastelltöne'){
+    // Zarte Pastelltöne
+    colors = [
+      "#D6EAF8", "#A7E0E5", "#CBAACB", "#FFB7C5", "#779ECB", "#D9B4E3",
+      "#FFD2A1", "#ACE5EE", "#E6CFE3", "#FFB347", "#F9FD96", "#FF6961",
+      "#D66666", "#77DD77", "#AFEAD7", "#C26E60", "#D8F5A2", "#FFA07A",
+      "#8FDFFB", "#E8C2A3", "#95D3A2", "#E2A7C9", "#7FD9E7", "#FFC8B2",
+      "#C38EC7", "#89CFF0", "#FADADD", "#F2C8E6", "#FAE1DD", "#A6E2E9"
+    ]
+  } else if (storedSelectedOption === 'Beeren-Farben'){
+    // Beeren-Farben
+    colors = [
+      "#6B0F1A", "#9A1B27", "#C2435A", "#E08BB3", "#7998C8", "#4A6C7D",
+      "#A44252", "#B75064", "#D59A9F", "#697ECF", "#6E8895", "#5B3644",
+      "#AB3E58", "#D96D82", "#E7B8C6", "#4A9EB0", "#3C5A6C", "#271D23",
+      "#A94455", "#C36C7D", "#DB9FAF", "#4D8FA0", "#7D5C6D", "#212833",
+      "#93233C", "#B54C62", "#D38494", "#5EA3D1", "#67798C", "#2E3945"
+    ]
+  } else if (storedSelectedOption === 'Frische Natur'){
+    //Frische Natur
+    colors = [
+      "#FFB703", "#6F9F6D", "#00B4D8", "#B6D58A", "#0077B6", "#90E0EF",
+      "#D4504E", "#8DBA7E", "#FFD166", "#935B40", "#EA6B74", "#A3C896",
+      "#FF69B4", "#5C9364", "#C6D1B5", "#6A2A1C", "#9FD19E", "#7B4A2B",
+      "#FF1493", "#24492F", "#DCE7A8", "#6DAF76", "#C1CDB6", "#4B0082",
+      "#E37760", "#007F5F", "#778899", "#DA70D6", "#87CEEB", "#FF6347"
+    ]
+   
+  } else if (storedSelectedOption === 'Ozeanische Ruhe'){
+    //Ozeanische Ruhe
+    colors = [
+      "#A9D6E5", "#6EB9F0", "#6CA6CD", "#4682B4", "#1C6BA0", "#FABADD",
+      "#E8C8DC", "#FF96C1", "#FF59B4", "#D14993", "#B0C4DE", "#7FCEEB",
+      "#00BFFF", "#1E70FF", "#6495ED", "#5F9EA0", "#4682B4", "#5B3998",
+      "#7FB3D5", "#5499C7", "#2980B9", "#2461A3", "#1B4F72", "#A5C1E9",
+      "#BED6F1", "#A6DAF8", "#EAF2F8", "#EBF5FB", "#7F9E9F", "#5C6E9F"
+    ] 
+  } else if (storedSelectedOption === 'Eiscreme-Sommer'){
+    //Eiscreme-Sommer
+    colors = [
+      "#1F5633", "#79A04C", "#F4EDED", "#A881A6", "#5C4563", "#95C074",
+      "#D1D9D5", "#E8C8EF", "#7B2F54", "#A3D6A2", "#9B6E83", "#F7E3E3",
+      "#8A3D75", "#C39CB3", "#BFAFCC", "#5B7157", "#B2DF9B", "#CBB7D4",
+      "#7A4E6C", "#4A8D62", "#6B557D", "#A9C9A9", "#DED4E6", "#502D5F",
+      "#D9E0EF", "#776C95", "#B1E2C2", "#4A7B57", "#E8B7EF", "#5F4C4B"
+    ] 
+  } else if (storedSelectedOption === 'Düsterer Herbst'){
+    //Düsterer Herbst
+    colors = [
+      "#2B1B17", "#5E342E", "#7B4E26", "#9B6513", "#A0622D", "#CD6B3F",
+      "#D26F1E", "#FF7F60", "#FF7347", "#FF4A00", "#8B1000", "#4B1072",
+      "#5A2A6E", "#800890", "#9370DB", "#5E1B3B", "#682C68", "#A5392A",
+      "#8B4513", "#D2691E", "#FFA07A", "#DA7520", "#7B3F20", "#4A4A4A",
+      "#5E5E7E", "#6B6B6B", "#3F4F4F", "#556B2F", "#9B6B00", "#BC9F8F"
+    ]
+  }else if (data_Name == "colors"){
+    colors = topData.map(colorObj => colorObj.data);
+    console.log(colors);    
   }
   
-
   let legendX1 = rectX; // Linker Block
   let legendX2 = rectX + rectWidth / 2 + 20; // Rechter Block
   let legendY = rectY + rectHeight + 50; // Höhe unter dem Rechteck

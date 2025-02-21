@@ -5,6 +5,9 @@ loadScript("static/js/libraries/p5.min.js", function () {
     console.log("p5 geladen");
 });
 
+
+const storedColorBorder = localStorage.getItem('colorBorder') || '#000000';
+console.log("colorBorder:", storedColorBorder);
 const storedDelaunayCount = localStorage.getItem('delaunayCount');
 const storedPalette = localStorage.getItem('selectedColorPalette');
 let colorPalette = [];
@@ -103,7 +106,7 @@ function draw() {
 
         // Zeichne das Dreieck
         fill(randomColor);
-        stroke(0);
+        stroke(storedColorBorder);
         strokeWeight(1);
         triangle(
             points[a],

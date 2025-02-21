@@ -80,6 +80,12 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="color-item">
+                    <label for="colorBorderPicker">Rand:</label>
+                    <div class="color-picker single" id="colorBorderPicker" style="background-color: #000000;" onclick="openColorPicker(event, this)"></div>
+                </div>
+                
                 
             </div>
             <input type="color" id="colorPickerInput" class="color-input">
@@ -87,7 +93,7 @@
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
 
 
-            <label for="delaunay-slider">Delaunay Count:</label>
+            <label for="delaunay-slider">Anzahl der Datenpunkte:</label>
             <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
             <span id="delaunay-value"></span>
 
@@ -155,12 +161,27 @@
             colorInput.click();
         }
     
+        // colorInput.addEventListener("change", function () {
+        //     if (activePicker) {
+        //         activePicker.style.backgroundColor = colorInput.value;
+        //         selectPalette(document.getElementById('custom-palette'), true);
+        //     }
+        // });
+
         colorInput.addEventListener("change", function () {
             if (activePicker) {
                 activePicker.style.backgroundColor = colorInput.value;
-                selectPalette(document.getElementById('custom-palette'), true);
+                
+                if (activePicker.id === 'colorBorderPicker') {
+                    localStorage.setItem('colorBorder', colorInput.value);
+                } else if (activePicker.closest('#custom-palette')) { 
+                    // Nur wenn es der benutzerdefinierte Picker ist
+                    selectPalette(document.getElementById('custom-palette'), true);
+                }
             }
         });
+
+
     
         function updateCustomPalette() {
             const customColors = Array.from(document.querySelectorAll('#custom-palette .color-picker'))
@@ -192,7 +213,13 @@
             const storedValue = parseInt(localStorage.getItem("delaunayCount"), 10) || Math.ceil(maxCount / 2);
 
             slider.max = maxCount;              // Max-Wert festlegen
-            slider.value = storedValue;         // Aktueller Wert aus LocalStorage
+            if (storedValue === null) {
+                slider.value = 0; // Erster Seitenaufruf: Setze Slider auf 0
+                localStorage.setItem("delaunayCount", 0); // Speichere 0 im LocalStorage
+            } else {
+                slider.value = parseInt(storedValue, 10); // Andernfalls gespeicherten Wert setzen
+            }
+         // Aktueller Wert aus LocalStorage
             valueDisplay.textContent = storedValue;
 
             slider.addEventListener("input", function () {
@@ -210,7 +237,14 @@
             const savedPalette = JSON.parse(localStorage.getItem('selectedColorPalette'));
             const savedCustomPalette = JSON.parse(localStorage.getItem('customColorPalette'));
             const savedMode = localStorage.getItem('delaunayMode');
-   
+            const borderColor = localStorage.getItem('colorBorder') || '#000000';
+            document.getElementById('colorBorderPicker').style.backgroundColor = borderColor;
+            
+            if (!localStorage.getItem('colorBorder')) {
+                localStorage.setItem('colorBorder', '#000000'); // Standardwert setzen
+            }
+
+
             if (savedMode) {
                 setMode(savedMode);
             }

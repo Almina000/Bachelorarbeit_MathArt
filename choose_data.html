@@ -6,41 +6,36 @@
     <title>Datensatz wählen</title>
     <link rel="stylesheet" href="static/css/styleStart.css">
     <script>
+        let selectedData = '';
+
         function chooseData(data_Name) {
+            selectedData = data_Name;
             console.log("chooseData wurde aufgerufen mit:", data_Name);
 
-            const profile_Name = localStorage.getItem("profileName");
-            console.log("PROFILNAME:", profile_Name);
+            // Button-Styling aktualisieren
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            event.target.classList.add('selected');
 
-            if (!profile_Name) {
-                console.error("Kein profileName im LocalStorage gefunden.");
-                return;
-            }
-
-            const dataFile = `static/js/data/${profile_Name}_${data_Name}_count.js`;
-            console.log("Zu überprüfende Datei:", dataFile);
-
-            fetch(dataFile, { method: 'HEAD' })
-                .then(response => {
-                    console.log("fetch-Response-Status:", response.status);
-
-                    if (response.ok) {
-                        console.log("Datei existiert, speichere in LocalStorage...");
-                        localStorage.setItem('dataPath', `${profile_Name}_${data_Name}`);
-                        localStorage.setItem('dataName', data_Name);
-                        console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
-
-                        // TEST: DIREKTE WEITERLEITUNG
-                        console.log("Weiterleitung zur nächsten Seite...");
-                        window.location.href = 'choose_algorithm.html';
-
-                    } else {
-                        console.error(`Daten für ${profile_Name}_${data_Name} nicht gefunden.`);
-                    }
-                })
-                .catch(error => console.error("Fehler beim Laden der Datei:", error));
+            // Weiter-Button aktivieren
+            document.getElementById('weiterButton').disabled = false;
         }
 
+        function goToNext() {
+            if (selectedData) {
+                const profile_Name = localStorage.getItem("profileName");
+                if (profile_Name) {
+                    localStorage.setItem('dataPath', `${profile_Name}_${selectedData}`);
+                    localStorage.setItem('dataName', selectedData);
+                    console.log("Gespeicherter dataPath:", localStorage.getItem("dataPath"));
+                    window.location.href = 'choose_algorithm.html';
+                } else {
+                    alert('Profil nicht gefunden. Bitte wähle zuerst ein Profil aus.');
+                }
+            } else {
+                alert('Bitte wähle einen Datensatz aus.');
+            }
+        }
     </script>
 </head>
 <body>
@@ -51,10 +46,15 @@
     </div>
     <h1>Wähle einen Datensatz</h1>
     <div class="buttons">
-        <button class="button" onclick="chooseData('hashtags')">Hashtags</button>
-        <button class="button" onclick="chooseData('colors')">Farben</button>
-        <button class="button" onclick="chooseData('months')">Monate</button>
-        <button class="button" onclick="chooseData('weeks')">Wochen</button>
+        <div class="row">
+            <button class="button" onclick="chooseData('hashtags')">Hashtags</button>
+            <button class="button" onclick="chooseData('colors')">Farben</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="chooseData('months')">Monate</button>
+            <button class="button" onclick="chooseData('weeks')">Wochen</button>
+        </div>
     </div>
+    <button id="weiterButton" class="weiter-button" onclick="goToNext()" disabled>Weiter</button>
 </body>
 </html>

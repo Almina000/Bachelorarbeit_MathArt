@@ -1,5 +1,5 @@
-const google_weeklyCounts = {
-    "weekly_counts": [
+if (typeof window !== 'undefined') {
+    window.google_weeks = [
         {
             "data": "W3",
             "count": 65
@@ -24,5 +24,8 @@ const google_weeklyCounts = {
             "data": "W6",
             "count": 1
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.google_weeks);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

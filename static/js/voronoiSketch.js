@@ -5,6 +5,9 @@ loadScript("static/js/libraries/p5.min.js", function () {
   console.log("p5 geladen");
 });
 
+const storedColorBorder = localStorage.getItem('colorBorder') || '#000000';
+console.log("colorBorder:", storedColorBorder);
+
 const storedDelaunayCount = localStorage.getItem('delaunayCount');
 const storedPalette = localStorage.getItem('selectedColorPalette');
 let colorPalette = [];
@@ -73,7 +76,7 @@ function draw() {
     beginShape();
     for (let i = 0; i < poly.length; i++){
       let randomColor = colorPalette[int(random(colorPalette.length))];
-      stroke(0);
+      stroke(storedColorBorder);
       strokeWeight(2);
       vertex(poly[i][0], poly[i][1]);
       fill(randomColor);

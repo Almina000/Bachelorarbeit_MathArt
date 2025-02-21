@@ -125,70 +125,13 @@
       </label> -->
 
       <p id="warning" style="color: red; display: none;">Die Gesamtanzahl der Formen darf maximal <span id="maxShape"></span> sein.</p>
-      
-      <button class="popup-button" onclick="openPopup()">Farbpalette wählen</button>
 
       <button id="startButton" onclick="startArt()">Anwenden</button>
     </div>
 
-    <div class="popup-overlay" id="popupOverlay">
-      <div class="popup">
-          <h2>Wähle eine Option</h2>
-          <div id="options"></div>
-          <button onclick="saveSelection()">OK</button>
-      </div>
-  </div>
-
     <div id="artwork"></div>
 
     <script>
-        //##############################################################
-        //Pop up
-
-        const options = ["Knallig Bunt", "Zarte Pastelltöne", "Beeren-Farben", "Frische Natur", "Ozeanische Ruhe", "Eiscreme-Sommer", "Düsterer Herbst"];
-
-        function openPopup() {
-            const popupOverlay = document.getElementById('popupOverlay');
-            const optionsContainer = document.getElementById('options');
-            optionsContainer.innerHTML = '';
-
-            const selectedOption = localStorage.getItem('selectedOption'); // Holt den gespeicherten Text!
-
-            options.forEach((option, index) => {
-                const div = document.createElement('div');
-                div.classList.add('option');
-                div.textContent = option;
-
-                // Überprüft, ob der Text mit dem gespeicherten Text übereinstimmt
-                if (option === selectedOption) {
-                    div.classList.add('selected');
-                }
-
-                div.onclick = () => selectOption(index);
-                optionsContainer.appendChild(div);
-            });
-
-            popupOverlay.classList.add('visible');
-        }
-
-
-        function selectOption(index) {
-            const allOptions = document.querySelectorAll('.option');
-            allOptions.forEach(option => option.classList.remove('selected'));
-            allOptions[index].classList.add('selected');
-        }
-
-        function saveSelection() {
-            const selectedOption = document.querySelector('.option.selected');
-            if (selectedOption) {
-                localStorage.setItem('selectedOption', selectedOption.textContent); // Speichert den Text, nicht den Index
-            }
-            document.getElementById('popupOverlay').classList.remove('visible');
-        }
-
-
-
-        //###########################################################
         let activePicker = null;
         const colorInput = document.getElementById("colorInput");
 

@@ -1,5 +1,5 @@
-const die_commanderschmiede_monthlyCounts = {
-    "monthly_counts": [
+if (typeof window !== 'undefined') {
+    window.die_commanderschmiede_months = [
         {
             "data": "December",
             "count": 19
@@ -48,5 +48,8 @@ const die_commanderschmiede_monthlyCounts = {
             "data": "April",
             "count": 14
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.die_commanderschmiede_months);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

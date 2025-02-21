@@ -1,5 +1,5 @@
-const die_commanderschmiede_weeklyCounts = {
-    "weekly_counts": [
+if (typeof window !== 'undefined') {
+    window.die_commanderschmiede_weeks = [
         {
             "data": "W5",
             "count": 32
@@ -24,5 +24,8 @@ const die_commanderschmiede_weeklyCounts = {
             "data": "W6",
             "count": 1
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.die_commanderschmiede_weeks);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

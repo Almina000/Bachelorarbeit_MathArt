@@ -1,5 +1,5 @@
-const vegan_check_monthlyCounts = {
-    "monthly_counts": [
+if (typeof window !== 'undefined') {
+    window.vegan_check_months = [
         {
             "data": "February",
             "count": 22
@@ -48,5 +48,8 @@ const vegan_check_monthlyCounts = {
             "data": "March",
             "count": 12
         }
-    ]
-};
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.vegan_check_months);
+}else {
+    console.error("Daten aus count.js nicht geladen");
+}

@@ -1,5 +1,5 @@
-const kulturcafezett9_weeklyCounts = {
-    "weekly_counts": [
+if (typeof window !== 'undefined') {
+    window.kulturcafezett9_weeks = [
         {
             "data": "W5",
             "count": 7
@@ -16,5 +16,8 @@ const kulturcafezett9_weeklyCounts = {
             "data": "W2",
             "count": 12
         }
-    ]
+    ];
+    console.log("Hashtag-Daten erfolgreich geladen:", window.kulturcafezett9_weeks);
+}else {
+    console.error("Daten aus count.js nicht geladen");
 };

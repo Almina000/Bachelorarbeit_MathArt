@@ -1,4 +1,5 @@
-const tagesschau_hashtagData = [
+if (typeof window !== 'undefined') {
+  window.tagesschau_hashtags = [
   {
     "data": "#hamburg",
     "count": 3
@@ -1820,3 +1821,7 @@ const tagesschau_hashtagData = [
     "count": 1
   }
 ];
+console.log("data-Daten erfolgreich geladen:", window.tagesschau_hashtags);
+}else {
+console.error("Daten aus count.js nicht geladen");
+}

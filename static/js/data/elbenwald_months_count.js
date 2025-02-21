@@ -2,7 +2,7 @@ if (typeof window !== 'undefined') {
     window.elbenwald_months = [
         {
             "data": "February",
-            "count": 35
+            "count": 41
         },
         {
             "data": "January",
@@ -14,11 +14,7 @@ if (typeof window !== 'undefined') {
         },
         {
             "data": "November",
-            "count": 50
-        },
-        {
-            "data": "October",
-            "count": 1
+            "count": 45
         }
     ];
     console.log("Hashtag-Daten erfolgreich geladen:", window.elbenwald_months);

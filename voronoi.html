@@ -88,12 +88,17 @@
                     </div>
                 </div>
                 
+                <div class="color-item">
+                    <label for="colorBorderPicker">Rand:</label>
+                    <div class="color-picker single" id="colorBorderPicker" style="background-color: #000000;" onclick="openColorPicker(event, this)"></div>
+                </div>
+
             </div>
             <input type="color" id="colorPickerInput" class="color-input">
 
             <div class="error-message" id="error-message">Bitte wählen Sie eine Farbpalette aus!</div>
 
-            <label for="delaunay-slider">Delaunay Count:</label>
+            <label for="delaunay-slider">Anzahl der Datenpunkte:</label>
             <input type="range" id="delaunay-slider" name="delaunay-slider" min="0">
             <span id="delaunay-value"></span>
             
@@ -149,9 +154,16 @@
         colorInput.addEventListener("change", function () {
             if (activePicker) {
                 activePicker.style.backgroundColor = colorInput.value;
-                selectPalette(document.getElementById('custom-palette'), true);
+                
+                if (activePicker.id === 'colorBorderPicker') {
+                    localStorage.setItem('colorBorder', colorInput.value);
+                } else if (activePicker.closest('#custom-palette')) { 
+                    // Nur wenn es der benutzerdefinierte Picker ist
+                    selectPalette(document.getElementById('custom-palette'), true);
+                }
             }
         });
+
     
         function updateCustomPalette() {
             const customColors = Array.from(document.querySelectorAll('#custom-palette .color-picker'))
@@ -196,11 +208,12 @@
             const activePalette = localStorage.getItem('activePalette');
             const savedPalette = JSON.parse(localStorage.getItem('selectedColorPalette'));
             const savedCustomPalette = JSON.parse(localStorage.getItem('customColorPalette'));
-            // const savedMode = localStorage.getItem('delaunayMode');
-   
-            // if (savedMode) {
-            //     setMode(savedMode);
-            // }
+            const borderColor = localStorage.getItem('colorBorder') || '#000000';
+            document.getElementById('colorBorderPicker').style.backgroundColor = borderColor;
+            
+            if (!localStorage.getItem('colorBorder')) {
+                localStorage.setItem('colorBorder', '#000000'); // Standardwert setzen
+            }
     
             if (savedCustomPalette) {
                 // Stellt sicher, dass die benutzerdefinierte Palette NIE verloren geht
